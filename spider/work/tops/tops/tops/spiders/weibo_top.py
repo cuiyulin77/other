@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import time
+import json
+from tops.items import TopsItem
+import re
+
+class WeiboTopSpider(scrapy.Spider):
+    name = 'weibo_top'
+    allowed_domains = ['m.weibo.cn/']
+    time_str = str(int(time.time()))
+    url = 'https://m.weibo.cn/api/container/getIndex?containerid=106003type%3D25%26t%3D3%26disable_hot%3D1%26filter_type%3Drealtimehot&title=%25E5%25BE%25AE%25E5%258D%259A%25E7%2583%25AD%25E6%2590%259C&extparam=filter_type%3Drealtimehot%26mi_cid%3D100103%26pos%3D0_0%26c_type%3D30%26display_time%3D'+time_str+'&luicode=10000011&lfid=231583'
+    start_urls = [url]
+
+    def parse(self, response):
+        html = response.body.decode()
+        html_json = json.loads(html)
+        card_list = html_json['data']['cards'][0]['card_group'][1:]
+        for card in card_list:
+            item = TopsItem()
+            item['top_title'] = card.get('desc')
+            item['top_type'] = '微博热搜榜'
+            item['hot_value'] = card.get('desc_extr')
+            item['url'] = card.get('scheme')
+            item['media'] = '微博'
+            pic = card.get('pic')
+            # http://simg.s.weibo.com/20170303_img_search_4.png
+            pic_re = re.search(".*?(\d+)\.png$",pic)
+            if pic_re:
+                item['top_num'] = pic_re.group(1)
+            else:
+                item['top_num'] = ''
+            # print(item)
+            # item['summary'] = ''
+            yield item

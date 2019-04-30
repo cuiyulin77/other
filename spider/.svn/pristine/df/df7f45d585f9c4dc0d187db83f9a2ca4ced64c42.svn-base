@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+import json
+import logging
+import datetime
+import time
+from copy import deepcopy
+import hashlib
+from somenew.items import SomenewItem
+from copy import deepcopy
+from elasticsearch import Elasticsearch
+import importlib
+import sys
+importlib.reload(sys)
+
+logger = logging.getLogger(__name__)
+
+# 获取新浪的滚动新闻（并不是很全面，一些地方站没有爬取）
+class SinanewSpider(scrapy.Spider):
+    name = "sina"
+    allowed_domains = ["sina.com.cn"]
+    es = Elasticsearch(hosts=['192.168.3.15'])
+    # 查询结束时间
+    this_day = datetime.date.today()
+    tomorrow = this_day + datetime.timedelta(days=1)
+    end_day = str(tomorrow) + 'T00:00:00'
+    # 查询起始时间
+    start = this_day - datetime.timedelta(days=7)
+    start_day = str(start) + 'T00:00:00'
+
+    query_json = {
+        "bool": {"must": [
+            {"match": {
+                "media": "新浪网"
+            }}
+        ],
+            "filter": {"range": {
+                "publish_time": {
+                    "gte": start_day,
+                    "lt": end_day}
+            }
+            }
+        }
+    }
+
+    # 获取总数["hits"]["total"]
+    res = es.count(index="spider", doc_type='article', body={"query": query_json})
+    res2 = es.search(index="spider", doc_type='article', body={"query": query_json, "size": res['count']})
+    urls = []
+    for i in res2['hits']['hits']:
+        urls.append(i['_source']['url'])
+
+    start_urls = urls
+
+    def parse(self, response):
+        item = SomenewItem()
+        url = response.url
+        m = hashlib.md5()
+        url = str(url)
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        com_parm = response.xpath("//meta[@name='sudameta'][2]/@content").extract_first()
+        com_parm_dic = {i.split(':')[0]: i.split(':')[1] for i in com_parm.split(';')}
+        com_url = 'http://comment5.news.sina.com.cn/page/info?version=1&format=json&channel=' + com_parm_dic[
+            'comment_channel'] + '&newsid=' + com_parm_dic['comment_id'] + '&group=undefined&compress=0&ie=utf-8'
+
+        yield scrapy.Request(com_url, callback=self.get_com_num, meta={"item": item})
+
+    def get_com_num(self, response):
+        item = deepcopy(response.meta['item'])
+        html = response.body.decode()
+        ret = json.loads(html)
+        item['comm_num'] = ret['result']['count']['total']
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['hot_value'] = item['comm_num']
+        yield item
+
+
+
+
+
+
+

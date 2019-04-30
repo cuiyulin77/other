@@ -1,0 +1,79 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import re
+import hashlib
+import datetime
+
+
+
+class BeiguowangSpider(scrapy.Spider):
+    name = 'beiguowang'
+    allowed_domains = ['lnd.com.cn']
+    start_urls = ['http://www.lnd.com.cn/','http://news.lnd.com.cn/']
+
+    def parse(self, response):
+        res = response.xpath('/html/body/div[11]/div[2]/span/div/div/p/a/@href|/html/body/div[12]/div/div/ul/span/ul/li/a/@href|/html/body/div[12]/div[2]/div[9]/span/ul/li/@href').extract()
+        res1 = response.xpath('/html/body/div[3]/span/div[2]/a/@href').extract()
+        if res:
+            for url in res:
+                yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+        if res1:
+            for url in res1:
+                yield scrapy.Request(url, callback=self.get_detail_url, dont_filter=True)
+
+
+    def get_detail_url(self,response):
+        url1 = ''
+        res1 = response.xpath('/html/body/div[4]/div[2]/div[1]/div[1]/span/ul/li/a/@href').extract()
+        for url in res1:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+        a = {1:4,3:23,6:24,5:288,8:24,7:5}
+
+        for m,n in a.items():
+            if n <200:
+                for i in range(1,int(n)+1):
+                    if len(str(i)) == 1:
+                        i = '0'+str(i)
+                        url1= 'http://news.lnd.com.cn/system/count//000400{}/000000000000/000/000/c000400{}000000000000_0000000{}.shtml'.format(m,m,i)
+                    elif len(str(i)) == 2:
+                        url1 = 'http://news.lnd.com.cn/system/count//000400{}/000000000000/000/000/c000400{}000000000000_0000000{}.shtml'.format(m, m, i)
+                    yield scrapy.Request(url1, callback=self.get_detail_url_list, dont_filter=True)
+            else:
+                for i in range(200, int(n) + 1):
+                    url1 = 'http://news.lnd.com.cn/system/count//000400{}/000000000000/000/000/c000400{}000000000000_000000{}.shtml'.format(m, m, i)
+                    yield scrapy.Request(url1, callback=self.get_detail_url_list, dont_filter=True)
+    def get_detail_url_list(self,response):
+        res = response.xpath('//div[1]/span/ul/li/a/@href').extract()
+        for url in res:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+    def get_detail(self,response):
+        # print(response.url,'我是响应的rul')
+        item= SomenewItem()
+        item['title']= response.xpath('/html/body/div[3]/div[1]/p/text()|/html/body/div[3]/div[1]/p/text()').extract_first()
+        item['time'] = response.xpath('/html/body/div[3]/div[1]/div[1]/div[1]/span[2]/text()').extract_first()
+        item['content'] = response.xpath('/html/body/div[3]/div[1]/div[3]/p/text()').extract()
+        item['come_from'] = response.xpath("/html/body/div[3]/div[1]/div[1]/div[1]/span[3]/a/text()").extract_first()
+        if item['title'] and item['content'] and item['time']:
+            item['title'] = item['title'].split('\u3000')[0].strip()
+            item['url'] = response.url
+            item['content'] = ''.join(item['content']).replace('\u3000', u' ').replace('\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').replace('\t','').replace('\r','').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '北国网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            print('北国网'*100)
+            yield item
+            print(item)
+
+

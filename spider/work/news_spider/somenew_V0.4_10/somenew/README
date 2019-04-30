@@ -1,0 +1,59 @@
+测试和运行环境下的差别:
+测试环境下:
+一.main_news.py
+1.大部分爬虫没有打开，只是注释掉了
+
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理
+2.DOWNLOAD_DELAY = 0.5
+
+
+*****************************************************************************************************
+运行环境下:
+一.main_news.py
+1.取消爬虫注释
+
+二.middlewares.py
+1.取消代理注释,使用代理
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类模块ok
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 打开代理
+2.注释掉 DOWNLOAD_DELAY = 0.5
+
+
+========================================================================================================
+一.somenew_V0.4_10版本更新：
+1.toutiao.py :
+（1）增加头条的爬虫
+（2）头条爬虫使用头条的搜索页面，直接使用客户设置的关键字搜索，得到的结果判断如果是在2天之内的话才保存
+(3) 获取头条的评论量是使用requests模块
+(4) 初始url是通过modles下的getSomething.py中的getUrls函数实现的获取。同时getSomething.py也有直接获取as，cp,_signature参数的方法，是通过selenium实现，速度太慢，所以舍弃。
+2.settings.py
+(1)添加redis去重
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True
+REDIS_URL = "redis://127.0.0.1:6379/10"
+
+
+
+==========================================================================================================
+
+
+
+
+
+

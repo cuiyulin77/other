@@ -1,0 +1,112 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+from lvyou.items import LvyouItem
+from lvyou.utils.common import get_md5
+import time
+
+# 天天养生http://www.ttys5.com/
+class TtysSpider(scrapy.Spider):
+    name = 'ttys'
+    allowed_domains = ['ttys5.com']
+    start_urls = ['http://www.ttys5.com/']
+
+    # def start_requests(self):
+    #     url = 'http://www.ttys5.com/xinwen/xinwenhangye/2018-01-30/149711_2.html'
+    #     yield scrapy.Request(url,callback=self.get_content)
+
+    def parse(self, response):
+        url_list = response.xpath("//ul[@class='menu clearfix']/li/ul/li/a/@href").extract()
+        for url in url_list:
+            # print(url)
+            yield scrapy.Request(url,callback=self.get_detail)
+
+    def get_detail(self,response):
+        url_list =response.xpath("//ul[@class='con']/li/a/@href").extract()
+        for url in url_list:
+            yield scrapy.Request(url,callback=self.get_content)
+        next_url = response.xpath("//a[contains(text(),'下一页')]/@href").extract_first()
+        if next_url:
+            next_url = response.urljoin(next_url)
+            yield scrapy.Request(next_url,callback=self.get_detail)
+
+    def get_content(self,response):
+        # 如果有meta参数,仅提取content
+        if response.meta.get('item'):
+            item = response.meta.get('item')
+            content = response.xpath("//div[@class='ad_580']/following-sibling::p").extract()
+            if content:
+                content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+
+            elif response.xpath("//p[@class='p_time']/following-sibling::p"):
+                content = response.xpath("//p[@class='p_time']/following-sibling::p").extract()
+                content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+            item['content'] = item['content'] + content
+        else:
+            item = LvyouItem()
+            item['title'] = response.xpath("//h1/text()").extract_first()
+            time_str = response.xpath("//p[@class='p_time']/text()").extract_first()
+            time_re = re.match(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}",time_str)
+            if time_re:
+                item['time'] = time_re.group()
+            # class='ad_580'的div标签之后的p标签
+            content = response.xpath("//div[@class='ad_580']/following-sibling::p").extract()
+            if content:
+                content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+
+            elif response.xpath("//p[@class='p_time']/following-sibling::p"):
+                content = response.xpath("//p[@class='p_time']/following-sibling::p").extract()
+                content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+            item['content'] = content
+            item['media'] = '天天养生网'
+            item['classid'] = '166'
+            item['url'] = response.url
+            item['writer'] = ' '
+            item['article_id'] = get_md5(item['url'])
+            item['keyid'] = ' '
+            item['titlepic'] = response.xpath("//div[@class='content']//img/@src").extract_first()
+            if not item['titlepic']:
+                item['titlepic'] = ' '
+            if item['time']:
+                timeArray = time.strptime(item['time'], "%Y-%m-%d %H:%M:%S")
+                item['newstime'] = int(time.mktime(timeArray))
+            else:
+                item['newstime'] = int(time.time())
+        next_url = response.xpath("//a[contains(text(),'下一页')]/@href").extract_first()
+        if next_url:
+            print("-文章有下一页" * 10)
+            next_url = response.urljoin(next_url)
+            yield scrapy.Request(next_url, callback=self.get_content, meta={'item': item})
+        else:
+            # print(item)
+            yield item
+
+
+        # p_list = response.xpath("//div[@class='ad_580']/following-sibling::p")
+        # if p_list:
+        #     for p in p_list:
+        #         con = p.xpath("./text()").extract()
+        #         if not con:
+        #             con = p.xpath("./a/img/@src").extract_first()
+        #             if con:
+        #                 con = ['<img src="{}">'.format(con)]
+        #         if con:
+        #             content = content + con
+        #     content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+
+        # elif response.xpath("//p[@class='p_time']/following-sibling::p"):
+        #     p_list = response.xpath("//p[@class='p_time']/following-sibling::p")
+        #     for p in p_list:
+        #         con = p.xpath("./text()").extract()
+        #         if not con:
+        #             con = p.xpath(".//img/@src").extract_first()
+        #             if con:
+        #                 con = ['<img src="{}">'.format(con)]
+        #         if con:
+        #             content = content + con
+        #     content = ''.join(content).replace(u'\u3000', u'&nbsp;').replace(u'\xa0', u'&nbsp;')
+        #     item['content'] = content
+        #     item['come_from'] = '天天养生网'
+        #     item['classfy'] = '养生'
+        #     item['url'] = response.url
+        #     print(item)

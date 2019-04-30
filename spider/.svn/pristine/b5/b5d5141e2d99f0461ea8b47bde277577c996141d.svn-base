@@ -1,0 +1,17 @@
+
+
+========================================================================================================
+一.sina_newV1.0版本更新：
+1.pipelines.py 不再存入mysql
+2.item.py 添加media_type字段
+3.sina.py 添加media_type字段，
+
+4.pipelines.py进行新闻分类 es中存入media_type,classify
+5.settings.py 不再生成log,随着时间的推移,log太大
+6.把今日头条放到此项目中，因为需要代理ip
+另外注意166.26 服务器上运行的代码,要取消RandomProxy 的注释,使用代理ip
+
+
+
+
+

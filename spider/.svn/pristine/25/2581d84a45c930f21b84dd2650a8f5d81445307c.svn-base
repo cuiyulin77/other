@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+import hashlib
+import datetime
+from somenew.items import SomenewItem
+
+class ChaoyangzufuwangSpider(scrapy.Spider):
+    name = 'chaoyangzufuwang'
+    allowed_domains = ['zgcy.gov.cn']
+    start_urls = ['http://www.zgcy.gov.cn/ZGCY/','http://www.zgcy.gov.cn/ZGCY/zwgk/004037/']
+
+    def parse(self, response):
+        res = response.xpath('//ul[not(@class="ewb-nav-items l") and not(@class="ewb-inter-items clearfix") and not(@class="ewb-funcs-items clearfix") and not(@class="ewb-func-items clearfix")]/li/a/@href').extract()
+        res1 = response.xpath('/html/body/div[2]/div/div[2]/div[2]/ul/li/a/@href').extract()
+        if res:
+            for url in res:
+                if 'void' not in url and 'http'not in url:
+                    if len(url) not in [i for i in range(18,29)]:
+                        url = 'http://www.zgcy.gov.cn'+url
+                        yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+        if res1:
+            for i in range(2,20):
+                for url in res1:
+                    url = 'http://www.zgcy.gov.cn'+url
+                    if len(url) ==39:
+                        url = re.findall(r'http://www.zgcy.gov.cn/ZGCY/zwgk/(.*)',url)[0]
+                        url = 'http://www.zgcy.gov.cn/ZGCY/CateogryPaging/'+url+'/Default_{}.htm'.format(i)
+                        yield scrapy.Request(url, callback=self.get_detail_url)
+    def get_detail_url(self,response):
+        res = response.xpath('/html/body/ul/li/a/@href').extract()
+        for url in res:
+            url = 'http://www.zgcy.gov.cn'+url
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+
+    def get_detail(self, response):
+            item = SomenewItem()
+            item['title'] = response.xpath('//*[@id="container"]/div[2]/div[2]/h2/text()').extract_first()
+            item['time'] = response.xpath('//*[@id="container"]/div[2]/div[2]/div[1]').extract_first()
+            item['time'] = re.findall(r'<span class="ewb-gap"></span>(.*?)<span ',item['time'])[0]
+            item['content'] = response.xpath('//*[@id="ivs_content"]/span/text()|//*[@id="ivs_content"]/p/text()|//*[@id="ivs_content"]/p/span/text()').extract()
+            if item['title'] and item['content'] and item['time']:
+                item['time'] = item['time'].split('发布日期：')[1]
+                item['url'] = response.url
+                item['content'] = ''.join(item['content']).replace(u'\u3000', u' ').replace(u'\xa0', u' ').replace('\n',
+                                                                                                                   '').replace(
+                    '\u2002', '').replace('\r','').strip()
+                m = hashlib.md5()
+                m.update(str(item['url']).encode('utf8'))
+                item['article_id'] = m.hexdigest()
+                item['media'] = '朝阳市政府'
+                item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+                item['comm_num'] = "0"
+                item['fav_num'] = '0'
+                item['read_num'] = '0'
+                item['env_num'] = '0'
+                item['media_type'] = '网媒'
+                # yield item
+                print(item)

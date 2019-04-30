@@ -1,0 +1,84 @@
+# -*- coding: utf-8 -*-
+
+import scrapy
+import re
+import json
+import logging
+import datetime
+import time
+from copy import deepcopy
+import hashlib
+from somenew.items import SomenewItem
+from elasticsearch import Elasticsearch
+import importlib
+import sys
+importlib.reload(sys)
+
+class QqnewsSpider(scrapy.Spider):
+    name = 'qqnews'
+    allowed_domains = ['qq.com']
+    # 从es中获取一个星期之内的，环球网所有的url。生成start_urls列表
+    es = Elasticsearch(hosts=['192.168.3.15'])
+    # 查询结束时间
+    this_day = datetime.date.today()
+    tomorrow = this_day + datetime.timedelta(days=1)
+    end_day = str(tomorrow) + 'T00:00:00'
+    # 查询起始时间
+    start = this_day - datetime.timedelta(days=7)
+    start_day = str(start) + 'T00:00:00'
+
+    query_json = {
+        "bool": {"must": [
+            {"match": {
+                "media": "腾讯新闻"
+            }}
+        ],
+            "filter": {"range": {
+                "publish_time": {
+                    "gte": start_day,
+                    "lt": end_day}
+            }
+            }
+        }
+    }
+
+
+    # 获取总数["hits"]["total"]
+    res = es.count(index="spider", doc_type='article', body={"query": query_json})
+    res2 = es.search(index="spider", doc_type='article', body={"query": query_json, "size": res['count']})
+    urls = []
+    for i in res2['hits']['hits']:
+        urls.append(i['_source']['url'])
+
+    start_urls = urls
+
+
+    def parse(self, response):
+        item = SomenewItem()
+        url = response.url
+        m = hashlib.md5()
+        url = str(url)
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        # if not item['content'] == '':
+        html = response.xpath("//*[@id='Main-Article-QQ']/div/div[1]/div[2]/script/text()").extract_first().replace(
+            "\n", '').replace(' ', '')
+        cmt_id = re.match('.*?cmt_id=(\d+).*', html).group(1)
+        com_url = 'https://coral.qq.com/article/' + cmt_id + '/commentnum'
+        yield scrapy.Request(com_url, callback=self.get_comm_num, dont_filter=True, meta={'item': item})
+
+    def get_comm_num(self, response):
+        item = deepcopy(response.meta['item'])
+        html = response.body.decode()
+        dic = json.loads(html)
+        item['comm_num'] = dic['data']['commentnum']
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['hot_value'] = item['comm_num']
+        yield item
+
+
+
+

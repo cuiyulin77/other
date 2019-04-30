@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import hashlib
+import datetime
+
+class DezhouxinwenSpider(scrapy.Spider):
+    name = 'dezhouxinwen'
+    allowed_domains = ['dezhoudaily.com']
+    start_urls = ['http://www.dezhoudaily.com/','http://www.dezhoudaily.com/dzyw/','http://www.dezhoudaily.com/dzsz/','http://www.dezhoudaily.com/dzsh/'\
+        ,'http://www.dezhoudaily.com/dzjj/','http://www.dezhoudaily.com/xsq/','http://www.dezhoudaily.com/pinglun/','http://www.dezhoudaily.com/shandong/',\
+                  'http://www.dezhoudaily.com/guonei/','http://www.dezhoudaily.com/guoji/','http://www.dezhoudaily.com/zhengwu/']
+
+    def parse(self, response):
+        print(len(response.url),response.url)
+        if len(response.url) == 27:
+            res = response.xpath('//div[not(@class="pro-link-tabs")and not(@class="pro-footer")]/ul[not(@class="pro-icons clearfix") and not(@class="cons first clearfix")]/li/a/@href').extract()
+            for url in res:
+                if len(url) == 15:
+                    url = 'http://www.dezhoudaily.com'+url
+                yield scrapy.Request(url,callback=self.get_detail)
+            res1 = response.xpath('//div[@class="left fl-l"]/a/@href').extract()
+            for url in res1:
+                yield scrapy.Request(url, callback=self.get_detail_diqu)
+
+        else:
+            url1 = response.url+'index.html'
+            yield scrapy.Request(url1,callback=self.get_detail_url)
+            for i in range(1,13):
+                url2 = response.url+ 'index_{}.html'.format(i)
+                yield scrapy.Request(url2, callback=self.get_detail_url)
+
+    def get_detail_url(self,reponse):
+        res = reponse.xpath('//ul[@class="pic-list"]/li/div/div/h3/a/@href').extract()
+        for url in res:
+            print(url)
+            yield scrapy.Request(url, callback=self.get_detail)
+    def get_detail_diqu(self,response):
+        res = response.xpath('//div/div/div[not(@class="w1000 clearfix mt20") and not(@class="pro-footer w1000")]/ul/li/a/@href').extract()
+        print(res,'woshi res')
+        for url in res:
+            yield scrapy.Request(url, callback=self.get_detail)
+
+    def get_detail(self,response):
+        print(response.url)
+        item = SomenewItem()
+        title  = ''.join(response.xpath("//h1/text()").extract()).strip()
+        item['time'] = response.xpath(
+                "//div[@class=\"article-infos\"]/time/text()").extract_first()
+        content = response.xpath('//div[@class="article-content"]/p/text()').extract()
+
+        if content and item['time'] and title:
+            item['url'] = response.url
+            item['title'] = ''.join(title).strip()
+            item['content'] = ''.join(content).replace(u'\u3000', u' ').replace(u'\xa0', u' ').\
+                replace('\n', '').replace( '\u2002', '').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '德州新闻'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            yield item
+
+

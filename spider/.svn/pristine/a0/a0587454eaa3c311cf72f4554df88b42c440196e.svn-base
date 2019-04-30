@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import re
+import hashlib
+import datetime
+
+# =============================================================================
+# 辽宁新闻网爬虫 首页:http://www.liaoningnews.cn/
+# =============================================================================
+class LiaoningxinwenwangSpider(scrapy.Spider):
+    name = 'liaoningxinwenwang'
+    allowed_domains = ['liaoningnews.cn']
+    start_urls = ['http://www.liaoningnews.cn/']
+
+    def parse(self, response):
+        res = response.xpath('//div[@class="nav_in"]/p/a/@href').extract()
+        for url in res:
+            if len(url)!=1:
+                url ='http://www.liaoningnews.cn'+url
+                yield scrapy.Request(url, callback=self.get_detail_url, dont_filter=True)
+
+    def get_detail_url(self,response):
+        res = response.xpath('//div/ul/li/h3/a/@href').extract()
+        for url in res:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+    def get_detail(self,response):
+        item = SomenewItem()
+        item['title'] = response.xpath('/html/body/div[4]/div[1]/div/h1/text()').extract_first()
+        item['time'] = response.xpath('/html/body/div[4]/div[1]/div/div[1]/span[3]/text()').extract_first()
+        item['content'] = response.xpath('/html/body/div[4]/div[1]/div/div[2]/p/text()').extract()
+        item['come_from'] = response.xpath("/html/body/div[4]/div[1]/div/div[1]/span[1]/text()").extract_first()
+        if item['title'] and item['content'] and item['time']:
+            item['time'] = item['time'].split('时间：')[1]
+            item['come_from'] = item['come_from'].split('来源：')[1]
+            item['url'] = response.url
+            item['content'] = ''.join(item['content']).replace(u'\u3000', u' ').replace(u'\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').replace('\r', '').replace('\t','').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '辽宁新闻网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['addr_province'] = '辽宁省'
+            print('辽宁新闻网' * 10)
+            yield item
+
+
+
+

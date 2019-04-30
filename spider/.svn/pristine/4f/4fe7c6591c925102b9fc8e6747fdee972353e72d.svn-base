@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import hashlib
+import datetime
+
+class QingdaonewsSpider(scrapy.Spider):
+    name = 'qingdaonews'
+    allowed_domains = ['news.qingdaonews.com']
+    start_urls = ['http://news.qingdaonews.com/']
+
+    def parse(self, response):
+         url = response.xpath('//*[@id="container"]/div[8]/div[1]/div[1]/a/@href').extract_first()
+         print ('woshi',url)
+         yield  scrapy.Request(url,callback = self.qingdaonnews)
+
+    def qingdaonnews(self,response):
+        url_list_node= ['_'+str(i) for i in range(2, 10)]
+        url_list_node.append('b')
+        for node in url_list_node:
+            if node == 'b':
+                url = 'http://news.qingdaonews.com/qingdao/node_91770.htm'
+                yield scrapy.Request(url, callback=self.qingdaonnews_detail_url)
+            else:
+                url = 'http://news.qingdaonews.com/qingdao/node_91770{}.htm'.format(node)
+                yield scrapy.Request(url, callback=self.qingdaonnews_detail_url)
+
+    def qingdaonnews_detail_url(self,response):
+        url_list = response.xpath('/html/body/div[5]/div[2]/div/div/div/h3/a/@href').extract()
+        for url in url_list:
+            yield scrapy.Request(url, callback=self.qingdaonnews_detail)
+
+    def qingdaonnews_detail(self,response):
+        item = SomenewItem()
+        item['title'] = response.xpath(
+            "//div[@class=\"g-box-2 mb30\"]/h1/text()").extract_first()
+        try:
+            item['time'] = response.xpath("/html/body/div[5]/div[1]/div/span[1]/text()").extract_first().split(
+                '\u3000')[0]
+        except:
+            item['time'] = None
+        #
+        item['url'] = response.url
+        item['content'] = response.xpath(
+            "/html/body/div[5]/div[2]/div[1]/p/text()").extract()
+
+        item['content'] = ''.join(item["content"]).replace(u'\u3000', u' ').replace('\xa9', u' ').replace('\n',' ').replace('\u2002', ' ').replace('\u200d', ' ').replace('\u2022', ' ').replace('\xa0', ' ').strip()
+        m = hashlib.md5()
+        m.update(str(item['url']).encode('utf8'))
+        item['article_id'] = m.hexdigest()
+        item['media'] = '青岛新闻网'
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['media_type'] = '网媒'
+        # print(item)
+        yield item
+
+
+
+
+
+
+
+
+
+
+

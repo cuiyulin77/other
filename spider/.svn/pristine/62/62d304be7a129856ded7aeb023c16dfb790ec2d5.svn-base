@@ -1,0 +1,24 @@
+# coding=utf-8
+
+import time
+import os
+
+while True:
+    os.system("scrapy crawl dzwww")
+    print("0" * 100)
+    os.system("scrapy crawl jiningxinwen")
+    print("1" * 100)
+    os.system("scrapy crawl qilv")
+    print("2" * 100)
+    os.system("scrapy crawl qingdaonews")
+    print("3" * 100)
+    os.system("scrapy crawl qlwb")
+    print("4" * 100)
+    os.system("scrapy crawl rizhaoxinwen")
+    print("5" * 100)
+    os.system("scrapy crawl sdnews")
+    print("6" * 100)
+    os.system("scrapy crawl shunwang")
+    print("7" * 100)
+    os.system("scrapy crawl weihai")
+    print("8" * 100)

@@ -1,0 +1,64 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import hashlib
+import datetime
+
+class QlwbSpider(scrapy.Spider):
+    name = 'qlwb'
+    allowed_domains = ['qlwb.com.cn']
+    start_urls = ['http://qlwb.com.cn/']
+
+    def parse(self, response):
+        res = response.xpath('//html/body/div[3]/div/ul/li[position()<41 and position()>22]/a/@href').extract()
+
+        for i in res:
+            yield scrapy.Request(i,callback=self.into_detail_url)
+
+    def into_detail_url(self,response):
+        res2 = response.xpath('//*[@id="main"]/div[2]/div/div[1]/div/div[1]/div/div[2]/ul/li/a/@href|//*[@id="main"]/div[2]/div/div[1]/div/div[1]/div/div[2]/ul/li/h3/a/@href\
+                       |//*[@id="main"]/div[2]/div/div[1]/div[2]/div[2]/div/div[2]/ul/li/h3/a/@href|//*[@id="main"]/div[2]/div/div[1]/div[2]/div[2]/div/div[2]/ul/li/a/@href\
+                              |//*[@id="main"]/div[2]/div/div[1]/div/ul/li/*/@href|/html/body/div/div/div/div/ul/li/a/@href|/html/body/div/div/div/div/ul[position()>1]/li/a/@href\
+                              |/html/body/div[5]/div[2]/div[2]/ul/li/a/@href|/html/body/div[5]/div[1]/div[3]/div/ul/li/a/@href').extract()
+        for i in res2:
+            yield scrapy.Request(i, callback=self.into_detail)
+
+    def into_detail(self,response):
+        item = SomenewItem()
+        item['title'] = response.xpath(
+            "//h1[@class=\"article-title\"]/text()").extract_first()
+        try:
+            item['time'] = response.xpath("//*[@id=\"pubtime_baidu\"]/text()").extract_first().split(
+                '\u3000')[0]
+        except:
+            item['time'] = None
+        # #
+        item['url'] = response.url
+        item['content'] = response.xpath(
+            "//div[@class=\"article-content fontSizeSmall BSHARE_POP\"]/p/text()|/html/body/div[2]/div[2]/div[1]/div[1]/div[3]/div/div/span/span/text()\
+            |//div[@class=\"article-content fontSizeSmall BSHARE_POP\"]/div/text()|//div[@class=\"article-content fontSizeSmall BSHARE_POP\"]/p/*/text()\
+            |/div[@class=\"article-content fontSizeSmall BSHARE_POP\"]/text()").extract()
+
+
+        item['content'] = ''.join(item["content"]).replace(u'\u3000', u' ').replace('\xa9', u' ').replace('\n',' ').replace('\u2002', ' ').replace('\u200d', ' ').replace('\u2022', ' ').replace('\xa0', ' ').strip()
+        m = hashlib.md5()
+        m.update(str(item['url']).encode('utf8'))
+        item['article_id'] = m.hexdigest()
+        item['media'] = '齐鲁晚报'
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['media_type'] = '网媒'
+        item['come_from'] = response.xpath("//meta[@name='source']/@content").extract_first()
+        item['addr_province'] = '山东'
+        # print(item)
+        yield item
+
+
+
+
+
+
+

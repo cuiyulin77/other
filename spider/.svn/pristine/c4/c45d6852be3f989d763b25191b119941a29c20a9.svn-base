@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import pymysql
+import datetime
+
+class SomenewPipeline(object):
+    def process_item(self, item, spider):
+        return item
+
+
+class DBPipeline(object):
+    def __init__(self):
+        # 连接数据库
+        self.connect = pymysql.connect(
+            host='localhost',
+            db='spider',
+            user='root',
+            password='root',
+            port=3306,
+            charset='utf8'
+
+        )
+        self.cursor = self.connect.cursor()
+
+    def process_item(self, item, spider):
+        try:
+            # 插入数据
+            self.cursor.execute(
+                "INSERT INTO article (id,article_id,title,content,url,media,publish_time,create_time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+                ('0',str(item['article_id']),
+                str(item['title']),
+                str(item['content']),
+                str(item['url']),
+                str(item['media']),
+                item['time'],
+                item['create_time'],)
+            )
+            self.connect.commit()
+            print('一条数据插入成功')
+        except Exception as e:
+            # 出现错误时打印错误日志
+            print(e)
+        return item

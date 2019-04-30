@@ -1,0 +1,19 @@
+# tops mysql±í´´½¨Óï¾ä
+
+CREATE TABLE `tops` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `top_num` int(6) unsigned DEFAULT NULL,
+  `top_type` varchar(50) DEFAULT NULL,
+  `top_title` varchar(200) DEFAULT NULL,
+  `url` text,
+  `hot_value` int(11) unsigned DEFAULT NULL,
+  `summary` text,
+  `media` varchar(50) DEFAULT NULL,
+  `hisdate` date DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+
+
+
+

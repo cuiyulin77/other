@@ -1,0 +1,14 @@
+# coding=utf-8
+
+#  重要性不高的地方网站,和sina,头条放一起太浪费资源
+import time
+import os
+
+while True:
+    os.system("scrapy crawl jiaodongzaixian")
+    time.sleep(1000)
+    print("*胶东在线*" * 100)
+
+    os.system("scrapy crawl qlwb")
+    print("*齐鲁晚报*" * 100)
+    time.sleep(1000)

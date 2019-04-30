@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+
+import scrapy
+import re
+import json
+import logging
+import datetime
+import time
+from copy import deepcopy
+import hashlib
+from somenew.items import SomenewItem
+
+
+class QqnewsSpider(scrapy.Spider):
+    name = 'qqnews'
+    allowed_domains = ['qq.com']
+    start_urls = ['http://ent.qq.com/articleList/rolls/']
+    taglist = ['ent', 'sports', 'finance', 'tech']
+
+    def parse(self, response):
+        for tag in self.taglist:
+            for i in range(10):
+                url = 'http://roll.news.qq.com/interface/cpcroll.php?site=' + tag + '&mode=1&cata=&date=2018-05-08&page={}'.format(i)
+                yield scrapy.Request(url, callback=self.parsepage, meta={'tag': tag}, dont_filter=True)
+
+    def parsepage(self, response):
+        tag = response.meta['tag']
+        newsjson = json.loads(response.text)
+        newslist = newsjson['data']['article_info']
+        for news in newslist:
+            url = news['url']
+            meta = {
+                'tag': tag,
+                'title': news['title'],
+                'pubtime': news['time'],
+            }
+            yield scrapy.Request(url, callback=self.parsebody, dont_filter=True, meta=deepcopy(meta))
+
+    def parsebody(self, response):
+        meta = response.meta
+        item = SomenewItem()
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        item['title'] = meta['title']
+        item['url'] = response.url
+        item['content'] = '\n'.join(
+            response.xpath("//div[@id='Cnt-Main-Article-QQ']/p[@class='text']/text()").extract())
+        item['time'] = meta['pubtime']
+        item['media'] = '腾讯新闻'
+        m = hashlib.md5()
+        url = str(item['url'])
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        if not item['content'] == '':
+            yield item

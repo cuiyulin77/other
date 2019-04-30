@@ -1,0 +1,21 @@
+# coding=utf-8
+
+import time
+import os
+
+
+while True:
+
+    # os.system("scrapy crawl chaoyan")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl chaoyangzufuwang")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl chaoyangxinwenwang")
+    # print("13 * 100")
+    # os.system("scrapy crawl liaoningxinwenwang")
+    # print("13 * 100")
+
+    os.system("scrapy crawl beiguowang")
+    print("13 * 100")

@@ -1,0 +1,34 @@
+# coding=utf-8
+
+import time
+import os
+
+
+while True:
+    os.system('scrapy crawl beiguowang')
+    print("1.北国网 * 100")
+
+    os.system("scrapy crawl chaoyan")
+    print("2.辽阳市政府 * 100")
+
+    os.system("scrapy crawl chaoyang_gongan")
+    print("3.朝阳市公安局 * 100")
+
+    os.system("scrapy crawl chaoyangxinwenwang")
+    print("4.朝阳新闻网 * 100")
+
+    os.system("scrapy crawl chaoyangzufuwang")
+    print("5.朝阳市政府 * 100")
+
+    os.system("scrapy crawl daliaowang")
+    print("6.腾讯大辽网 * 100")
+
+    os.system("scrapy crawl liaoningxinwenwang")
+    print("7.辽宁新闻网 * 100")
+
+    os.system("scrapy crawl wangyi_liaoning")
+    print("8.网易辽宁 * 100")
+
+
+
+

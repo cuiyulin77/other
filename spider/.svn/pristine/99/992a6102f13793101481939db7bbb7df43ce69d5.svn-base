@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import re
+import hashlib
+import datetime
+
+
+class HebeiqingnianwangSpider(scrapy.Spider):
+    name = 'hebeiqingnianwang'
+    allowed_domains = ['hbynet.net']
+    start_urls = ['http://www.hbynet.net/index/2','http://www.hbynet.net/index/8','http://www.hbynet.net/index/1','http://www.hbynet.net/index/5']
+
+    def parse(self, response):
+        res = response.xpath('//div[@class="list-content"]/div/header/a/@href').extract()
+        for url in res:
+            url = 'http://www.hbynet.net'+url
+            yield scrapy.Request(url, callback=self.get_detail)
+        for i  in  range(2,100):
+            url = response.url+'?page=%d'%i
+            # print(url)
+            yield scrapy.Request(url, callback=self.get_detail_url)
+
+    def get_detail_url(self, response):
+        res = response.xpath('//div[@class="list-content"]/div/header/a/@href').extract()
+        for url in res:
+            url = 'http://www.hbynet.net'+url
+            print(url)
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+    def get_detail(self,response):
+        print(response.url,'我是响应的rul')
+        item= SomenewItem()
+        item['title']= response.xpath('//div[1]/h1/text()').extract_first()
+        item['time'] = response.xpath('//div[2]/div[1]/div/span[2]/text()').extract_first()
+        item['come_from'] = response.xpath('//div[2]/div[1]/div/span[1]/text()').extract()
+        item['content'] = response.xpath('//div[1]/div[2]/div[2]/p/text()').extract()
+        if item['title'] and item['content']:
+            item['come_from'] = item['come_from'][0].split('来源：')[1]
+            item['url'] = response.url
+            item['content'] = ''.join(item['content']).replace('\u3000', u' ').replace('\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').replace('\t','').replace('\r','').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '河北青年报'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['addr_province'] = '河北省'
+            print('河北青年报' * 100)
+            # yield item

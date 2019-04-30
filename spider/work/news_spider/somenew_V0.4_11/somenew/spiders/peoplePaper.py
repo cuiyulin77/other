@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import datetime
+import re
+import hashlib
+from somenew.items import SomenewItem
+
+check_value = lambda x: x if x else ""
+
+# 人民日报爬虫http://paper.people.com.cn/rmrb/html/2018-04/14/nbs.D110000renmrb_01.htm
+# 获取当天之前最长一定时间的人民日报电子版的内容
+class PeoplepaperSpider(scrapy.Spider):
+    name = 'peoplePaper'
+    allowed_domains = ['people.com.cn']
+    # start_urls = ['http://people.com.cn/']
+    today = datetime.date.today()
+    # print('*****', today)
+    url_list = []
+    for i in range(2):
+        date = today - datetime.timedelta(days=i)
+        date = date.strftime("%Y-%m/%d")
+        url = 'http://paper.people.com.cn/rmrb/html/'+str(date)+'/nbs.D110000renmrb_01.htm'
+        url_list.append(url)
+    start_urls = url_list
+
+    def parse(self, response):
+        # 解析第一版面，获取本期所有的版面信息
+        page_urls = response.xpath("//a[@id='pageLink']/@href").extract()
+        page_urls.append(response.url)
+        for url in page_urls:
+            yield scrapy.Request(response.urljoin(url),callback=self.get_article_url,)  # dont_filter=True
+
+    # 获取每版文章的url
+    def get_article_url(self,response):
+        article_urls = response.xpath("//div[@id='titleList']/ul/li/a/@href").extract()
+        for url in article_urls:
+            url = response.urljoin(url)
+            yield scrapy.Request(url,callback=self.get_content,dont_filter=True)
+
+    def get_content(self,response):
+        item = SomenewItem()
+        item['url'] = response.url
+        item['time'] = re.search("(\d{4})-(\d{2})/(\d{2})", item['url']).group()
+        content = response.xpath('//div[@id="ozoom"]/p//text()').extract()
+        if content:
+            # item["content"] = "".join(content)
+            item['content'] = ''.join(content).replace(u'\u3000', u' ').replace(u'\xa0', u' ')
+        else:
+            item["content"] = ""
+
+        first_title = check_value(response.xpath('//div[@class="text_c"]/h3/text()').extract_first())
+        second_title = check_value(response.xpath('//div[@class="text_c"]/h1/text()').extract_first())
+        # 作者。数据库建立这个字段的话，可以进行抓取
+        # item['author'] = response.xpath('//div[@class="text_c"]/h4/text()').extract_first()
+        item['title'] = first_title+second_title
+        item['media'] = '人民日报'
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        m = hashlib.md5()
+        url = str(item['url'])
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        yield item
+
+
+
+

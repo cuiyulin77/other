@@ -1,0 +1,56 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import datetime
+import hashlib
+from somenew.items import SomenewItem
+import json
+from copy import deepcopy
+
+# 第一财经爬虫
+class YicaiSpider(scrapy.Spider):
+    name = 'yicai'
+    allowed_domains = ['yicai.com']
+    url_list = []
+    for i in range(11)[1:]:
+        url = 'https://www.yicai.com/api/ajax/getlatest?page=' + str(i) + '&pagesize=25'
+        url_list.append(url)
+    start_urls = url_list
+
+    def parse(self, response):
+        html = response.body.decode()
+        json_html = json.loads(html)
+        for obj in json_html:
+            item = SomenewItem()
+            item['time'] = obj['pubDate']
+            item['title'] = obj['NewsTitle']
+            url = obj['url']
+            item['url'] = response.urljoin(url)
+            yield scrapy.Request(item['url'],callback=self.get_content,meta={"item":item},dont_filter=True)
+
+    def get_content(self,response):
+        item=deepcopy(response.meta['item'])
+        item['media'] = '第一财经'
+        # item['url'] = response.url
+        item['content'] = response.xpath("//div[@class='m-txt']//p//text()").extract()
+        item['content'] = ''.join(item["content"]).replace(u'\u3000', u' ').replace(u'\xa0', u' ')
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        m = hashlib.md5()
+        url = str(item['url'])
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['media_type'] = '网媒'
+        yield item
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+测试和运行环境下的差别:
+测试环境下:
+一.tie.py
+1.kw_list列表提前设定,测试只使用了‘北京’作为关键词，后期可以维护一个热点城市列表，或者一个数据库
+2.只提取第一页的文章
+3.
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理
+2.ROBOTSTXT_OBEY = False
+3.CONCURRENT_REQUESTS = 3 限制线程数，贴吧反爬太厉害，总是获取不到数据
+
+
+*****************************************************************************************************
+运行环境下:
+一.tie.py
+1.kw_list列表提前设定,后期可以维护一个热点城市列表，或者一个数据库
+2.提取前20页的文章
+3.
+4.
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理，不知道百度限制如何，如果反爬不严重，就不使用代理了，太慢。
+
+2.ROBOTSTXT_OBEY = False
+3.
+
+
+========================================================================================================
+一.tieba_v1.1版本更新：
+1.pipelines.py 不再存入mysql,es中存入media_type
+2.item.py 添加media_type字段
+3.tie.py 添加media_type字段,从数据库中获取关键词,进行贴吧搜索
+4.settings.py 不再生成log,随着时间推移,log太大
+
+
+
+
+

@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class BeijingshizhengfuSpider(scrapy.Spider):
+    name = 'beijingshizhengfu'
+    allowed_domains = ['jj']
+    start_urls = ['http://jj/']
+
+    def parse(self, response):
+        pass

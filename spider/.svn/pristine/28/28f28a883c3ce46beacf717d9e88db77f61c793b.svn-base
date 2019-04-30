@@ -1,0 +1,128 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+import re
+import hashlib
+import datetime
+
+class HebeixinwenwangSpider(scrapy.Spider):
+    name = 'hebeixinwenwang'
+    allowed_domains = ['hebnews.cn']
+    start_urls = ['http://www.hebnews.cn/','http://hebei.hebnews.cn/']
+
+
+
+    def parse(self, response):
+        res = response.xpath('//div/li/a/@href|//div[1]/div/div[2]/a/@href').extract()
+        res2 = response.xpath('//div[@class="zj2018-mainnews-right"]/ul/li/a/@href|//ul[@class="list zj2018-headlist"]/li/a/@href\
+        |//ul[@class="list  zj2018-mid_fix3"]/li/a[3]/@href|//div[@class="zj2018-left-box"]/div/ul/li/a/@href\
+                              |//div[9]/div/ul/li/a/@href|//div[9]/div/div/p/a/@href\
+                              |//div/div/div/p/a/@href|//div[not(@class="ctt") and not(@class="zj2018-hd") \
+                              and not(@class ="zj2018-box fl") and not(@class="bd") and not(@class="h2017_navigation")\
+                               and not(@class="main5 g_width") and not(@class="col_right")]/div[not(@class="h2017_g_width")]/ul/li/a/@href').extract()
+        res3 = response.xpath('//*[@id="h2017_nav"]/li/a/@href').extract()
+        if res2:
+            for url in res2:
+                if 'http' not in url:
+                    res2.remove(url)
+            for url in res2:
+                print(url)
+                if 'xiongan' not in url :
+                    try:
+                        yield scrapy.Request(url, callback=self.get_detail)
+                    except:
+                        pass
+
+        if res:
+            for url in res:
+                url = 'http://hebei.hebnews.cn/'+url
+                print(url)
+                yield scrapy.Request(url, callback=self.get_detail)
+            for i in range(2,200):
+                url = 'http://hebei.hebnews.cn/index_{}.htm'.format(i)
+                yield scrapy.Request(url, callback=self.get_detail_url)
+
+        if res3:
+            for url in res3:
+                if len(url)< 25:
+                    print(url,'我是要发送的url')
+                    try:
+                        yield scrapy.Request(url, callback=self.get_detail_url_list)
+                    except:
+                        pass
+                else:
+                    print(url, '我是要发送的url1111111111111111111111111111')
+                    yield scrapy.Request(url, callback=self.get_detail_url)
+
+
+
+
+    def get_detail_url_list(self,response):
+        res = response.xpath('//div[@class="page_nav"]/a/@href|//div[@class="nav"]/a/@href|//div[@class="min_nav"]/a/@href').extract()
+        for url in res:
+            if len(url)<16:
+                res = response.url.split('hebnews.cn')[1]
+                if res:
+                    url1 = response.url + url
+                else:
+                    url1 = response.url +'/' +url
+                # print(url1,'我马上进入详情页')
+                yield scrapy.Request(url1, callback=self.get_detail_url2,meta={'data':response.url})
+
+    def get_detail_url2(self,response):
+        res = response.xpath('//div[@class="list"]/li/a/@href').extract()
+        for url in res:
+            if len(url) == 30:
+                url = response.meta['data'] +'/'+url
+                print(url,'我是短命url')
+                yield scrapy.Request(url, callback=self.get_detail)
+            else:
+                print(url, 'url')
+                yield scrapy.Request(url, callback=self.get_detail)
+
+
+    def get_detail_url(self,response):
+        res = response.xpath('//div/li/a/@href|//div[1]/div/div[2]/a/@href').extract()
+        for url in res:
+            url = 'http://hebei.hebnews.cn/'+url
+            print(url)
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+    def get_detail(self,response):
+        print(response.url,'我是响应的rul')
+        item= SomenewItem()
+        item['title']= response.xpath('//h1/text()').extract_first()
+        try:
+            item['time'] = response.xpath('//div[@class="post_source"]/text()').extract()[0]
+        except:
+            pass
+        item['content'] = response.xpath('//div[@class="text"]/p/text()|//*[@id="content"]/p/span/text()|//*[@id="content"]/span/span/p/text()').extract()
+        try:
+            item['come_from'] = response.xpath('//div[@class="post_source"]/a/text()|//div[@class="g_width content"]/div[1]/text()').extract_first()
+        except:
+            pass
+        if item['title'] and item['content']:
+
+            item['come_from'] = item['come_from'].split('来源：')[1].split('\n')[0]
+            try:
+                item['time'] = item['time'].split('\u3000')[0].split('\n')[1]
+            except:
+                pass
+            item['url'] = response.url
+            item['content'] = ''.join(item['content']).replace('\u3000', u' ').replace('\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').replace('\t','').replace('\r','').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '河北新闻网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['addr_province'] = '河北省'
+            print('河北新闻网'*100)
+            yield item

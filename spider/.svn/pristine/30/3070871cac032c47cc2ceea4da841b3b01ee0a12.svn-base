@@ -1,0 +1,84 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+from somenew.items import SomenewItem
+import hashlib
+import datetime
+import time
+import json
+
+# =============================================================================
+# 吕梁新闻网爬虫 首页:
+# =============================================================================
+
+
+class LuliangxinwenwangSpider(scrapy.Spider):
+    name = 'luliangxinwenwang'
+    allowed_domains = ['sxllnews.cn']
+    start_urls = ['http://www.sxllnews.cn/column/3.html','http://www.sxllnews.cn/column/2.html'\
+        ,'http://www.sxllnews.cn/column/4.html','http://www.sxllnews.cn/column/13.html'\
+        ,'http://www.sxllnews.cn/column/8.html','http://www.sxllnews.cn/column/12.html',\
+        'http://www.sxllnews.cn/column/11.html','http://www.sxllnews.cn/column/10.html'\
+        ,'http://www.sxllnews.cn/column/9.html',]
+
+
+    def parse(self, response):
+        res = response.xpath('//*[@id="articleList"]/li/a/@href').extract()
+        for url in res:
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+    def get_detail_url(self,response):
+        res = response.body.decode()
+        data = re.findall(r'32px;" href="(.*?)" class="bt_link"',res)
+        for url in data:
+            if 'http' not in url:
+                url = response.url+url.replace('./', '')
+            print(url)
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+
+    def get_detail(self, response):
+        item = SomenewItem()
+        print(response.url,'我是响应的rul')
+        item['title'] = response.xpath('//div[@class="text"]/h1/text()').extract_first()
+        item['time'] = response.xpath('/html/body/div[4]/div[1]/div/div[1]/i[1]/text()').extract()
+        item['content'] = response.xpath('/html/body/div[4]/div[1]/div/div[2]/p').xpath('string(.)').extract()
+        item['come_from'] = response.xpath('/html/body/div[4]/div[1]/div/div[1]').xpath('string(.)').extract_first()
+        if  item['title'] and item['content']:
+            item['time'] = item['time'][0].replace('年','/').replace('月','/').replace('日','')
+            item['url'] = response.url
+            item['come_from'] = item['come_from'].strip().split('\r\n')
+            for i in item['come_from']:
+                if '来源：' in i:
+                    item['come_from'] = i.split('来源：')[1]
+                else:
+                    item['come_from']='吕梁新闻网'
+            item['content'] = ''.join(item['content']).replace('\u3000', u' ').replace('\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').replace('\t','').replace('\r','').strip()
+
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '吕梁新闻网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['addr_city'] = '吕梁'
+            item['addr_province'] = '山西省'
+            # print('吕梁新闻网' * 100)
+            yield item
+
+
+
+
+
+
+
+
+

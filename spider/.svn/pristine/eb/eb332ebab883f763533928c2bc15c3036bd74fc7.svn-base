@@ -1,0 +1,132 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+from time import sleep
+import hashlib
+import datetime
+import re
+import requests
+
+from lxml import etree
+
+
+class QilvSpider(scrapy.Spider,):
+    name = 'qilv'
+    allowed_domains = ['iqilu.com']
+    start_urls = ['http://www.iqilu.com/']
+
+    def parse(self, response):
+        #  标题新闻
+
+        one_node = response.xpath(".//div[@class=\"mod-headline-title\"]/h2/a/@href|//div[6]/div[2]/ul/li/a/@href").extract()
+        for url in one_node:
+            yield scrapy.Request(url, callback=self.get_detail,dont_filter=True)
+
+        #看山东和时评
+        m = response.xpath("//div[@class=\"mod-b\"]/ul/li/a/@href").extract()
+        for url in m:
+            yield scrapy.Request(url,callback =self.get_detail, dont_filter=True)
+        # 看世界
+        n = response.xpath("//div[@class=\"toggle-show\"]/ul[@class=\"news-list type-b\"]/li/a/@href").extract()
+        for url in n:
+            yield scrapy.Request(url,callback =self.get_detail, dont_filter=True)
+
+        #体育，阳光连线
+        l = response.xpath("//div[11]/div/div[1]/ul/li/a/@href|//div[11]/div/div[3]/ul/li/a/@href").extract()
+        # print(l,'提取的url')
+        for url in l:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+        # 健康，财经，健康
+        k= response.xpath("//div[13]/div/div/ul/li/a/@href|//div[14]/div/div/div/div/h4/a/@href").extract()
+        for url in k:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+        # 房产，教育，汽车
+        o = response.xpath("//div[14]/div/div/ul/li/a/@href|//div[14]/div/div/div/div/h4/a/@href").extract()
+        for url in o:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+        # 食品安全，艺术鉴赏，齐鲁未来
+        w = response.xpath("//div[15]/div/div/ul/li/a/@href|////div[15]/div/div/div[2]/div/h4/a/@href").extract()
+        for url in w:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+        # 页面新闻网址
+        b = response.xpath("//div[@class=\"nav-part-a clearfix\"]/ul[1]/li[1]/a[1]/@href").extract_first()
+        yield scrapy.Request(b, callback=self.get_news_detail, dont_filter=True)
+
+        #页面时评网址
+        shipin_url = response.xpath("//div[@class=\"nav-top\"]/div[1]/ul[1]/li[1]/a[3]/@href").extract_first()
+        yield scrapy.Request(shipin_url, callback=self.get_shipin, dont_filter=True)
+
+    def get_shipin(self,response):
+        url = response.xpath('//div[@class="wrapper head_nav"]/ul/li[2]/a/@href').extract_first()
+        yield scrapy.Request(url, callback=self.get_weipin, dont_filter=True)
+
+    def get_weipin(self,response):
+        for i in range(2,21):
+            url = 'http://pinglun.iqilu.com/weipinglun/index_{name}.shtml'.format(name=i)
+            yield scrapy.Request(url, callback=self.get_weipin_detail, dont_filter=True)
+
+    def get_weipin_detail(self,response):
+        url_list = response.xpath('//*[@id="nr_left"]/div/div[1]/h3/a/@href').extract()
+        for url in url_list:
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+    def get_news_detail(self,response):
+        """点击齐鲁首页新闻页面提取页面url函数"""
+        # 齐鲁原创
+        z = '//div[3]/div[@class="col-lft"]/div/ul/li/a/@href'
+        y = '//div[3]/div[2]/div[1]/ul/li/a/@href'
+        a = '//div[5]/div[1]/div/ul/li/a/@href'
+        c = '//div[5]/div[2]/div[1]/ul/li/a/@href'
+        d = '//div[5]/div[2]/div[1]/ul/li/a/@href'
+        e  = '//div[1]/div[3]/ul/li/a/@href'
+        xpath_list= [z,y,a,c,d,e]
+        for xpat in xpath_list:
+            url_list = response.xpath(xpat).extract()
+            for url in url_list:
+                yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+
+
+
+    def get_detail(self,response):
+        item = SomenewItem()
+        item['title'] =response.xpath("/html/body/div/div[2]/div[1]/h1/text()|//div[@class=\"section-cnt-tit clearfix\"]/h1/text()").extract_first()
+        item['time'] = response.xpath("/html/body/div/div[2]/div[1]/h6/span[1]/text()|//div[@class=\"info\"]/p[3]/text()").extract_first()
+        item['url'] = response.url
+        item['content'] = response.xpath("//div[@class=\"article-main\"]/p[position()<4]/text()|//div[@class=\"article_body\"]/p[position()<42]/text()").extract()
+        item['content'] = ''.join(item["content"]).replace(u'\u3000', u' ').replace(u'\xa0', u' ')
+        m = hashlib.md5()
+        m.update(str(item['url']).encode('utf8'))
+        item['article_id']= m.hexdigest()
+        item['media'] = '齐鲁网'
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['media_type'] = '网媒'
+        item['come_from'] = response.xpath("//p[1]/span/text()").extract_first()
+        item['addr_province'] = '山东'
+        item['addr_city'] = None
+        yield item
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+from somenew.utils.get_start_urls import get_urls
+from somenew.utils.common import get_md5
+import re
+
+
+# 澎湃爬虫
+class PengpaiSpider(scrapy.Spider):
+    name = 'pengpai'
+    allowed_domains = ['thepaper.cn']
+    # urls = get_urls("澎湃")
+    # print(urls)
+    start_urls = ['thepaper.cn']
+
+    def start_requests(self):
+        urls = get_urls("澎湃")
+        for url in urls:
+            yield scrapy.Request(url,callback=self.parse)
+
+    def parse(self, response):
+        item = SomenewItem()
+        url = response.url
+        item['article_id'] = get_md5(url)
+        com_num = response.xpath("//h2[@id='comm_span']/span/text()").extract_first().replace("（", '').replace("）", '')
+        com_int = re.match("(.*)k$", com_num)
+        if com_int is not None:
+            item['comm_num'] = int(float(com_int.group(1)) * 1000)
+        else:
+            item['comm_num'] = com_num
+        fav_num = response.xpath("//a[@id='zan']/text()").extract_first().replace("（", '').replace("）", '').replace(
+            "\n", '').replace("\t", '')
+        fav_num_int = re.match("(.*)k$", fav_num)
+        if fav_num_int is not None:
+            item['fav_num'] = int(float(fav_num_int.group(1)) * 1000)
+        else:
+            item['fav_num'] = fav_num
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['hot_value'] = int(item['fav_num']) + int(item['comm_num'])
+        yield item
+
+
+

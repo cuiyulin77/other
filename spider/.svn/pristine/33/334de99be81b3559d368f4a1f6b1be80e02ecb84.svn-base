@@ -1,0 +1,121 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+import json
+from somenew.items import SomenewItem
+import pymysql
+from somenew.models.getSomething import getUrls
+from w3lib.html import remove_tags
+import datetime
+import html
+import hashlib
+import requests
+from time import sleep
+
+
+
+class ToutiaoSpider(scrapy.Spider):
+    name = 'toutiao'
+    allowed_domains = ['toutiao.com']
+    url_list = []
+    # 连接云服务器mysql
+    conn = pymysql.connect(host='47.92.166.26', port=3306, user='root', password='admin8152', database='xuanyuqing',
+                           charset='utf8')
+    cs1 = conn.cursor()
+    cs1.execute('select  title from company_popular_feelings')
+    result = cs1.fetchall()
+    for res in result:
+        # print(res)
+        urls = getUrls(page=2, keyWord=res[0])
+        url_list += urls
+    url_list = list(set(url_list))
+    start_urls = url_list
+    # print()
+
+    def parse(self, response):
+        absText = response.body.decode()
+        absDic = json.loads(absText)
+        datas = absDic['data']
+        for data in datas:
+            if ('group_id' in data.keys()):
+                mainUrl = 'https://www.toutiao.com/a' + str(data['group_id']) + '/'
+                yield scrapy.Request(mainUrl, callback=self.sec_parse, dont_filter=True,
+                                     meta={"group_id": data['group_id']})
+
+
+    def sec_parse(self,response):
+        fullText = response.body.decode()
+        # print(fullText)
+        # 如果打印出来的fullText没有网页内容,那就是被头条反爬了,必须使用代理ip
+        group_id = response.meta['group_id']
+        item = SomenewItem()
+        try:
+            reTitle = '<title>.*?</title>'
+            print("1"*20)
+            print(response.url)
+            time = re.search(r"time: \'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", fullText)
+            if time != None:
+                time = time.group(1)
+                last_time = (datetime.datetime.now()-datetime.timedelta(days=int(2))).strftime("%Y-%m-%d %H:%M:%S")
+                # 如果2天以内的数据
+                if last_time < time:
+                    item['time'] = time
+                    title = re.findall(reTitle,fullText)
+                    print(title)
+                    item['title'] = str(title[0][7:-8])
+                    reContent = 'content: \'&lt;div&gt;&lt;.*?&lt;/div&gt;\''
+                    reg = re.compile(reContent)
+                    content = reg.findall(fullText)
+                    if content != [] and content != None:
+                        print("4" * 20)
+                        # print(content)
+                        content = html.unescape(content[0][10:-1])
+                        print("*"*10)
+                        content = remove_tags(content)
+                        print(content)
+                        print("6" * 20)
+                        item['content'] = str(content)
+                    item['url'] = str(response.url)
+                    m = hashlib.md5()
+                    url = str(item['url'])
+                    m.update(str(url).encode('utf8'))
+                    article_id = str(m.hexdigest())
+                    # m.update(str(item['url'])).encode('utf-8')
+                    item['article_id'] = article_id
+                    item['media'] = '今日头条'
+                    item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+                    item['comm_num'] = self.getComments(group_id)
+                    item['read_num'] = 0
+                    item['fav_num'] = 0
+                    item['env_num'] = 0
+                    print(item)
+                    yield item
+        except Exception as e:
+            self.log('文章' + item['title']+" 爬取失败, 可能没有文本信息")
+            print(e)
+
+    def getComments(self, group_id):
+        url = 'https://www.toutiao.com/api/comment/list/?group_id=%s&item_id=%s&offset=0&count=20' %(group_id, group_id)
+        commentsRequest = requests.get(url=url, headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+                                                                         ' Chrome/67.0.3396.87 Safari/537.36'})
+        text = json.loads(commentsRequest.text)
+        comments = (text['data'])
+        total = comments['total']
+        # comments = comments['comments']
+        # res = []
+        # res.append({'total': str(total)})
+        # if int(total) > 0:
+        #     for com in comments:
+        #         name = com['user']['name']
+        #         text = com['text']
+        #         res.append({name: text})
+        # comm = json.dumps(res, ensure_ascii=False)
+        # print('&'*10,comm)
+        return total
+
+
+
+
+
+
+

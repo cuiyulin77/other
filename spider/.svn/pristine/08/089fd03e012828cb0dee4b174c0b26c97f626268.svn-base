@@ -1,0 +1,99 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import hashlib
+import datetime
+from somenew.items import SomenewItem
+
+class SdnewsSpider(scrapy.Spider):
+    name = 'sdnews'
+    allowed_domains = ['cn']
+    start_urls = ['http://www.sdnews.com.cn/']
+
+    def parse(self, response):
+        res = response.xpath('/html/body/div[14]/div[1]/div[5]/div[2]/div/h2/a/@href|//*[@id="b5_c_1"]/div/ul/li/a|//div/ul/div/li/a/@href|/html/body/div[20]/div[1]/div/div/div/dl/dt/ul/li/a/@href\
+        |/html/body/div[20]/div[1]/div/div/div/ul/li/a/@href|/html/body/div[24]/div[1]/div/div/div/dl/dt/ul/li/a/@href|/html/body/div[24]/div[1]/div/div/div/ul/li/a/@href').extract()
+        for res_url in res:
+            yield scrapy.Request(res_url, callback=self.get_detail)
+
+        res2 = response.xpath('//div[@class="col"]/p[3]/a/@href').extract()
+        for res_url in res2:
+            yield scrapy.Request(res_url, callback=self.get_detail_url,meta={'grand_father_url':res_url})
+
+
+    def get_detail_url(self,response):
+        grand_father_url = response.meta['grand_father_url']
+
+        res3 = response.xpath('//div[@class="nav"]/p/a/@href').extract()
+        for res_url in res3:
+            if 1<len(res_url)<20 :
+                res_url = response.url+ res_url.split('./')[1]
+                yield scrapy.Request(res_url, callback=self.get_detail_url_list,meta={'grand_father_url':grand_father_url})
+
+
+    def get_detail_url_list(self,response):
+        grand_father_url = response.meta['grand_father_url']
+        last_node = response.xpath('//*[@id="pagenav_tail"]/@href|//*[@id="pagenav_tail"]/@href').extract_first()
+        d_url = ''
+        if last_node :
+            node = last_node.split('.')[0].split('_')[1]
+            url = ['_'+str(i) for i in range(1,int(node)+1)]
+            for n in url:
+                if 'index' in last_node:
+                    d_url = response.url+'index{}.htm'.format(n)
+                else:
+                    d_url = response.url+'default{}.htm'.format(n)
+        else:
+            node = len(response.xpath('//*[@class="turnPage"]/span/@id'))
+            if node>0:
+                for i in range(1,node):
+                    d_url = response.url + 'index{}.htm'.format(i) or response.url + 'default{}.htm'.format(i)
+        if d_url :
+            yield scrapy.Request(d_url, callback=self.get_detail_url_list_fanye,meta={'item': response.url, 'grand_father_url': grand_father_url})
+
+    def get_detail_url_list_fanye(self,response):
+        parent_url = response.meta['item']
+        grand_father_url = response.meta['grand_father_url']
+        url_list = response.xpath('//div[@class="list_box"]/h3/a/@href').extract()
+        for url in url_list:
+            if '../' not in url:
+                url = parent_url+url.split('./')[1]
+            else:
+                url = grand_father_url+url.split('../')[1]
+            yield scrapy.Request(url, callback=self.get_detail)
+
+
+
+    def get_detail(self,response):
+        item = SomenewItem()
+        item['title'] = response.xpath(
+            '//div[@class="fl endContent"]/h1/text()').extract_first()
+        try:
+            item['time'] = response.xpath(
+                "//div[@class=\"bb info\"]/span/text()").extract_first().split(
+                '\u3000')[0]
+        except:
+            item['time'] = None
+
+        item['url'] = response.url
+        item['content'] = response.xpath('//*[@id="endText"]/div/p/text()|//*[@id="endText"]/div/div/p[@align="justify"]/text()|//*[@id="endText"]/div/p/span/text()\
+        |//*[@id="endText"]/div/div/p/text()|//*[@id="endText"]/div/p/font/text()|//p[@align="justify"]/text()|//*[@id="endText"]/div/div/p/font/text()').extract()
+
+
+        item['content'] = ''.join(item['content']).replace(u'\u3000', u' ').replace(u'\xa0', u' ').replace('\n','').replace('\u2002', '').strip()
+        m = hashlib.md5()
+        m.update(str(item['url']).encode('utf8'))
+        item['article_id'] = m.hexdigest()
+        item['media'] = '鲁网'
+        item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        item['comm_num'] = "0"
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['media_type'] = '网媒'
+        item['come_from'] = response.xpath('//div[1]/span/text()').extract_first().split('来源:')[1]
+        item['addr_province'] = '山东'
+        item['addr_city'] = None
+        yield item
+
+
+

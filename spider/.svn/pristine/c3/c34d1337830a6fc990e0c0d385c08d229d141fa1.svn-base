@@ -1,0 +1,51 @@
+# coding=utf-8
+
+import time
+import os
+
+
+
+while True:
+
+    # os.system("scrapy crawl bandaochenbao")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl beiguowang")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl chaoyan")
+    # print("13 * 100")
+    # #
+    # os.system("scrapy crawl chaoyang_gongan")
+    # print("13 * 100")
+    # #
+    # os.system("scrapy crawl chaoyangxinwenwang")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl chaoyangzufuwang")
+    # print("13 * 100")
+    #
+    # os.system("scrapy crawl dalianwang")
+    # # print("13 * 100")
+    # os.system("scrapy crawl dalianxinwenwang")
+    # # print("13 * 100")
+    # os.system("scrapy crawl daliaowang")
+    # # print("13 * 100")
+    # os.system("scrapy crawl dongbeixinwenwang")
+    # # print("13 * 100")
+    #
+    # os.system("scrapy crawl hailiwang")
+    # # print("13 * 100")
+    # os.system("scrapy crawl liaoningtieba")
+    # # print("13 * 100")
+    # os.system("scrapy crawl liaoningxinwenwang")
+    # # print("13 * 100")
+    # os.system("scrapy crawl chaoyan")
+    # # print("13 * 100")
+    # os.system("scrapy crawl wangyi_liaoning")
+    # # print("13 * 100")
+    # os.system("scrapy crawl xinlangliaoning")
+    # # print("13 * 100")
+
+    os.system("scrapy crawl tianyaluntanliaoning")
+    # print("13 * 100")

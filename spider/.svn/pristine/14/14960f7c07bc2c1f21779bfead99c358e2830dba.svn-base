@@ -1,0 +1,83 @@
+# coding=utf-8
+
+import time
+import os
+
+while True:
+    # os.system("scrapy crawl bjqingnian")
+    # print("0" * 100)
+    #
+    # os.system("scrapy crawl cctv_jj")
+    # print("1" * 100)
+    #
+    # os.system("scrapy crawl chinanews")
+    # print("2" * 100)
+    #
+    # os.system("scrapy crawl cnmo")
+    # print("3" * 100)
+    #
+    # os.system("scrapy crawl dazhewang")
+    # print("4" * 100)
+    #
+    # os.system("scrapy crawl dizhenju")
+    # print("5 * 100")
+    #
+    # os.system("scrapy crawl gjjr")
+    # print("6" * 100)
+    #
+    # os.system("scrapy crawl hangzhouwang")
+    # print("7" * 100)
+    #
+    # os.system("scrapy crawl hschenbao")
+    # print("9" * 100)
+    #
+    # os.system("scrapy crawl huanqiu")
+    # print("8" * 100)
+    #
+    # os.system("scrapy crawl jiangxifayuan")
+    # print("9" * 100)
+    #
+    # os.system("scrapy crawl jingjiribao")
+    # print("10" * 100)
+    #
+    # os.system("scrapy crawl laodong")
+    # print("11" * 100)
+    #
+    # os.system("scrapy crawl pengpai")
+    # print("12" * 100)
+    #
+    # os.system("scrapy crawl peoplePaper")
+    # print("13" * 100)
+    #
+    #
+    # os.system("scrapy crawl qqnews")
+    # print("14" * 100)
+    #
+    # os.system("scrapy crawl sina_leju")
+    # print("15" * 100)
+    #
+    # os.system("scrapy crawl xinhua")
+    # print("17" * 100)
+    #
+    # os.system("scrapy crawl xinjingbao")
+    # print("18" * 100)
+    #
+    # os.system("scrapy crawl yicai")
+    # print("19" * 100)
+    #
+    # os.system("scrapy crawl zgjingji")
+    # print("20" * 100)
+    #
+    # os.system("scrapy crawl zhejiangzaixian")
+    # print("21" * 100)
+    #
+    # os.system("scrapy crawl zhongzheng")
+    # print("22" * 100)
+
+    # os.system("scrapy crawl zqrb_cj")
+    # print("23" * 100)
+
+    os.system("scrapy crawl wangyi2")
+    print("23" * 100)
+
+

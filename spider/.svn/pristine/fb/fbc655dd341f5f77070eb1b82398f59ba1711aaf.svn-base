@@ -1,0 +1,39 @@
+测试和运行环境下的差别:
+测试环境下:
+一.weibo.py
+1.result列表提前设定,
+2.user_id提取方式不一样.
+3.item['time'] 可以不为空
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理
+
+*****************************************************************************************************
+运行环境下:
+一.weibo.py
+1.result列表从mysql中读取, weibo_user表中,获取user_url,通过正则匹配出user_id
+2.user_id提取方式,res[0]才能提取到数据,记着转换
+3.item['time'] = None 但是在年底提前注意,否则容易获取不到年底的数据
+二.middlewares.py
+1.有代理,可以提高速度进行快速爬取.线程数可以设定为16
+三.es_model.py
+1.es IP设定为本地
+四.pipelines.py
+1.mysql和es需要设定为local
+2.mysql密码注意
+3. 获取情感分类需要引用模型进行识别
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 需要打开代理
+
+
+
+
+
+

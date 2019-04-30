@@ -1,0 +1,14 @@
+CREATE TABLE `article` (
+  `article_id` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  
+  `content` text,
+  `url` varchar(255) DEFAULT NULL,
+  `media` varchar(255) DEFAULT NULL,
+  
+  `publish_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+

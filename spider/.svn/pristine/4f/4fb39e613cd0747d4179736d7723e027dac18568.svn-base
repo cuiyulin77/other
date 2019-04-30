@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://doc.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class LvyouItem(scrapy.Item):
+    title = scrapy.Field()
+    time = scrapy.Field()
+    url = scrapy.Field()
+    content = scrapy.Field()
+    article_id = scrapy.Field()
+    media = scrapy.Field()
+    create_time = scrapy.Field()
+    comm_num = scrapy.Field()  # 评论数量
+    read_num = scrapy.Field()  # 阅读量
+    fav_num = scrapy.Field()  # 点赞，喜欢数量
+    env_num = scrapy.Field()  # 转发量
+    media_type = scrapy.Field()  # 媒体类型
+    come_from = scrapy.Field()
+    # 192.168.3.15的classid:旅游(165),人物(164),养生(166),美食(167),天下(170)
+    # 47.92.166.26 的classid:旅游(52),人物(165),养生(166),美食(171),天下(136),公益(170),活动(169),城市(168)
+    classid = scrapy.Field()  # 所需要存放的栏目的id
+    keyid = scrapy.Field()  # 关键字
+    writer = scrapy.Field()  # 作者  ' '
+    newstime = scrapy.Field()  # 字符串格式的时间转化为10位的时间戳
+    titlepic = scrapy.Field()  # 标题图片 应取新闻第一张图片,否则就为' '
+

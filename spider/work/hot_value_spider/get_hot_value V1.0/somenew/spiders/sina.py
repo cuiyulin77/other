@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+import json
+from somenew.utils.common import get_md5
+from somenew.utils.get_start_urls import get_urls
+from somenew.items import SomenewItem
+from copy import deepcopy
+
+
+# 获取新浪的滚动新闻（并不是很全面，一些地方站没有爬取）
+class SinanewSpider(scrapy.Spider):
+    name = "sina"
+    allowed_domains = ["sina.com.cn"]
+    # urls = get_urls("新浪网")
+    # print(urls)
+    start_urls = ["sina.com.cn"]
+    custom_settings = {
+        # 'DOWNLOAD_DELAY': 3,
+        'ITEM_PIPELINES': {'somenew.pipelines.DBPipeline': 30},
+        'DOWNLOADER_MIDDLEWARES': {
+            'somenew.middlewares.RandomUserAgent': 1,
+            'somenew.middlewares.RandomProxy': 100,
+        }
+    }
+
+    def start_requests(self):
+        urls = get_urls("新浪网")
+        for url in urls:
+            yield scrapy.Request(url,callback=self.parse)
+
+    def parse(self, response):
+        item = SomenewItem()
+        url = response.url
+        item['article_id'] = get_md5(url)
+        com_parm = response.xpath("//meta[@name='sudameta'][2]/@content").extract_first()
+        if com_parm == 'sinaog:0':
+            com_parm = response.xpath("//meta[@name='sudameta'][1]/@content").extract_first()
+        com_parm_dic = {i.split(':')[0]: i.split(':')[1] for i in com_parm.split(';')}
+        com_url = 'http://comment5.news.sina.com.cn/page/info?version=1&format=json&channel=' + com_parm_dic[
+            'comment_channel'] + '&newsid=' + com_parm_dic['comment_id'] + '&group=undefined&compress=0&ie=utf-8'
+
+        yield scrapy.Request(com_url, callback=self.get_com_num, meta={"item": item})
+
+    def get_com_num(self, response):
+        item = deepcopy(response.meta['item'])
+        html = response.body.decode()
+        ret = json.loads(html)
+        item['comm_num'] = ret['result']['count']['total']
+        item['fav_num'] = '0'
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['hot_value'] = item['comm_num']
+        yield item
+
+
+
+
+
+
+

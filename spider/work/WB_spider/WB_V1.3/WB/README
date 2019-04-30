@@ -1,0 +1,87 @@
+测试和运行环境下的差别:
+测试环境下:
+一.weibo.py
+1.result列表提前设定,
+2.user_id提取方式不一样.
+3.item['time'] 可以不为空
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理
+2.DOWNLOAD_DELAY = 0.5
+
+
+*****************************************************************************************************
+运行环境下:
+一.weibo.py
+1.result列表从mysql中读取, weibo_user表中,获取user_url,通过正则匹配出user_id
+2.user_id提取方式,res[0]才能提取到数据,记着转换
+3.item['time'] = None 但是在年底提前注意,否则容易获取不到年底的数据
+4.for i in range(1,3) 需要根据情况进行调整，尽量只提取最新的数据
+二.middlewares.py
+1.有代理,可以提高速度进行快速爬取.线程数可以设定为16，或者32
+三.es_model.py
+1.es IP设定为本地
+四.pipelines.py
+1.mysql和es需要设定为local
+2.mysql密码注意
+3. 获取情感分类需要引用模型进行识别
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 需要打开代理
+2.DOWNLOAD_DELAY = 0.5 需要注销
+
+
+========================================================================================================
+一.WB v1.1版本更新：
+1.weibo.py :
+（1）直接从数据库读取user_id,containerid，不用再单独去请求一次,直接诶生成url，请求需要的数据，少一次请求过程，应该速度快
+但是有可能后期改变containerid，会导致请求不到数据，需要注意
+（2）for i in range(1,21) 改为for i in range(1,3),只请求前2页数据，后期根据情况进行调整，尽量只提取最新的数据
+(3) 获取微博的全文，如果需要微博客户端才能打开博文链接，直接返回json中的博文内容（可能不全面）
+(4) 只获取粉丝数大于10000的博主的文章
+2.settings.py
+
+# 禁止重试:
+RETRY_ENABLED = False
+# 减小下载超时:
+DOWNLOAD_TIMEOUT = 50
+COOKIES_ENABLED = False
+
+
+==========================================================================================================
+一.WB v1.2版本更新：
+1.settings.py
+
+(1)# 取消禁止重试:
+注释 RETRY_ENABLED = False
+(2)# 减小下载超时:
+注释 DOWNLOAD_TIMEOUT = 50
+COOKIES_ENABLED = False
+(3)# 爬取线程数100
+CONCURRENT_REQUESTS = 100
+(4)# 同时下载数量
+CONCURRENT_REQUESTS_PER_DOMAIN = 1000000
+(5) user-agent 换成移动版本
+
+=======================================================================================
+一.WB_V1.3 版本更新：
+1.settings.py
+(1) 不再保存log日志,日志太大
+
+2.pipelines.py
+(1)不在存入mysql
+(2)情感分析不再调用本地模型,而直接调用百度api
+(3) 添加文章分类字段classify
+3.items.py
+(1) 添加media_type
+4.weibo.py
+(1) 添加item['media_type'] = '微博'
+(2)时间判断添加'刚刚'
+(3)获取url的方式不是再获取scheme,而是获取idstr,和'https://m.weibo.cn/detail/'组合得到真正的url
+(4)从网页源代码中获取最准确的时间dt,重新赋值给item['time']

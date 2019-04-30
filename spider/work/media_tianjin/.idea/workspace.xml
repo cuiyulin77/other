@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="efd8ed43-ad80-4e3a-b6ac-64ebe2a0c28a" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/media_shanxi$lianx.coverage" NAME="lianx Coverage Results" MODIFIED="1544422668030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/media_tianjin$proxies_mogu.coverage" NAME="proxies_mogu Coverage Results" MODIFIED="1546825267467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../python/other" />
+    <SUITE FILE_PATH="coverage/media_tianjin$YDMPython3_x.coverage" NAME="YDMPython3.x Coverage Results" MODIFIED="1546582097637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/Python调用示例/Python调用示例" />
+    <SUITE FILE_PATH="coverage/media_shanxi$lianx__1_.coverage" NAME="lianx (1) Coverage Results" MODIFIED="1545011282169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_liaoning$main_shandong.coverage" NAME="main_shandong Coverage Results" MODIFIED="1541221869644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_shangdong$main_shandong.coverage" NAME="main_shandong Coverage Results" MODIFIED="1540892596168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_liaoning$doutu.coverage" NAME="doutu Coverage Results" MODIFIED="1542433964825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$weixingongzhonghao_fabu.coverage" NAME="weixingongzhonghao_fabu Coverage Results" MODIFIED="1546506147869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_tianjin$lianx.coverage" NAME="lianx Coverage Results" MODIFIED="1545212523493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/media_liaoning$dalianwang.coverage" NAME="dalianwang Coverage Results" MODIFIED="1541559738116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_tianjin$weixingongzhonghao_fabu1.coverage" NAME="weixingongzhonghao_fabu1 Coverage Results" MODIFIED="1546594164184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_shanxi$python.coverage" NAME="python Coverage Results" MODIFIED="1544519493425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_tianjin$YDMHTTPDemo3_x__1_.coverage" NAME="YDMHTTPDemo3.x (1) Coverage Results" MODIFIED="1546590535374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$lianx3.coverage" NAME="lianx3 Coverage Results" MODIFIED="1546594130410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$lianx__1_.coverage" NAME="lianx (1) Coverage Results" MODIFIED="1546502679424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$YDMHTTPDemo3_x.coverage" NAME="YDMHTTPDemo3.x Coverage Results" MODIFIED="1546589864369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$media_tianjin.coverage" NAME="media_tianjin Coverage Results" MODIFIED="1550112606726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_hebei$media_hebei.coverage" NAME="media_hebei Coverage Results" MODIFIED="1543567769212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_shangdong$main_news.coverage" NAME="main_news Coverage Results" MODIFIED="1540891278338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_shanxi$media_shanxi.coverage" NAME="media_shanxi Coverage Results" MODIFIED="1545012359951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_liaoning$lianx.coverage" NAME="lianx Coverage Results" MODIFIED="1542249367705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_liaoning$main_liaoning.coverage" NAME="main_liaoning Coverage Results" MODIFIED="1542361513757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_hebei$hebeixinwenwang.coverage" NAME="hebeixinwenwang Coverage Results" MODIFIED="1542597790300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_shanxi$media_hebei.coverage" NAME="media_hebei Coverage Results" MODIFIED="1543804539703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_tianjin$lianx2.coverage" NAME="lianx2 Coverage Results" MODIFIED="1546405850900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/utils" />
+    <SUITE FILE_PATH="coverage/media_tianjin$media_shanxi.coverage" NAME="media_shanxi Coverage Results" MODIFIED="1545294867895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew" />
+    <SUITE FILE_PATH="coverage/media_liaoning$j.coverage" NAME="j Coverage Results" MODIFIED="1540972149335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/somenew/spiders" />
+    <SUITE FILE_PATH="coverage/media_shangdong$main_news__1_.coverage" NAME="main_news (1) Coverage Results" MODIFIED="1540891694316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1136769965">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.126" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.23" value="1" />
+          <entry key="project.open.time.24" value="1" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.26" value="2" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.89" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="18" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="140" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="140" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="8163" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="8163" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1124071825">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="10" />
+          <entry key="project.open.time.0" value="6" />
+          <entry key="project.open.time.1" value="4" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.24" value="3" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.opened" value="18" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="README" value="1" />
+          <entry key="gif" value="6" />
+          <entry key="jj" value="2" />
+          <entry key="jpg" value="6" />
+          <entry key="py" value="155" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Image" value="12" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="155" />
+          <entry key="Web2Py" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="5784" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="5784" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1938020130">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.0" value="4" />
+          <entry key="project.open.time.24" value="2" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.26" value="3" />
+          <entry key="project.open.time.27" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="13" />
+          <entry key="py" value="5883" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="Python" value="5883" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="79" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="79" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="1352614049">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.25" value="2" />
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.open.time.32" value="1" />
+          <entry key="project.open.time.33" value="1" />
+          <entry key="project.open.time.37" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="15" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="130" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="130" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="1" />
+          <entry key="py" value="4711" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="4711" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1206589977">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.1" value="3" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.25" value="2" />
+          <entry key="project.open.time.26" value="3" />
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.open.time.28" value="2" />
+          <entry key="project.open.time.30" value="2" />
+          <entry key="project.open.time.33" value="2" />
+          <entry key="project.open.time.36" value="1" />
+          <entry key="project.open.time.42" value="1" />
+          <entry key="project.open.time.60" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="25" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="126" />
+          <entry key="sql" value="11" />
+          <entry key="txt" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="126" />
+          <entry key="SQL" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="18" />
+          <entry key="py" value="10709" />
+          <entry key="sql" value="6" />
+          <entry key="txt" value="39" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="57" />
+          <entry key="Python" value="10709" />
+          <entry key="SQL" value="6" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="media_shangdong" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/somenew/items.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/somenew/media_tianjin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/somenew/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>19</find>
+      <find>17</find>
+      <find>18</find>
+      <find>34</find>
+      <find>end</find>
+      <find>魏</find>
+      <find>贡山独龙族怒族</find>
+      <find>德宏傣族景颇族</find>
+      <find>康巴什</find>
+      <find>技术产业</find>
+      <find>石家庄循环化工园</find>
+      <find>从1到10，读懂习近平总书记在庆祝改革开放40周年大会上的讲话</find>
+      <find>url</find>
+      <find>link</find>
+      <find>var msg_cdn_url = &quot;</find>
+      <find>var msg_cdn_url</find>
+      <find>var msg_desc</find>
+      <find>var msg_cdn_url =</find>
+      <find>成长为渤海湾畔最具投资潜力的一片热土</find>
+      <find>响应的url和key</find>
+      <find>w</find>
+      <find>2222222222222222222222222222222222222222222</find>
+      <find>222222222</find>
+      <find>111111</find>
+      <find>11111111111111111111111111</find>
+      <find>556</find>
+      <find>res</find>
+      <find>111111111111111111111111111111111111</find>
+      <find>我是res</find>
+      <find>，</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>吕梁</replace>
+      <replace>长治</replace>
+      <replace>晋中</replace>
+      <replace>临汾</replace>
+      <replace>晋城</replace>
+      <replace>北国网</replace>
+      <replace>天津日报</replace>
+      <replace>天津</replace>
+      <replace>微信公众号</replace>
+      <replace>,</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/somenew/spiders/huanjingjinwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/hebeidianshitai.py" />
+        <option value="$PROJECT_DIR$/somenew/media_hebei.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/zhangjiakouxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/xintaixinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/qinhuangdaoxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/baodingzaixian.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/hengshuixinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/ttaiyuanxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/shanxinwanbao.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/shanxixinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/taiyuanxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/yunchengxinwen.py" />
+        <option value="$PROJECT_DIR$/lianx.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/xizhouwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/jinzhongxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/python.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/changzhixinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/datongxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/huanghexinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/jinchengxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/linfenxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/luliangxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/suozhouxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/xinzhouwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/yangquanxinwenwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/wangyi3.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/wangyi2.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/wangyi1.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/tianjin.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/beifangwang.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/xinlangliaoning.py" />
+        <option value="$PROJECT_DIR$/somenew/media_shanxi.py" />
+        <option value="$PROJECT_DIR$/somenew/utils/citydata.txt" />
+        <option value="$USER_HOME$/Desktop/省市县.sql" />
+        <option value="$PROJECT_DIR$/somenew/utils/省市县.sql" />
+        <option value="$PROJECT_DIR$/somenew/middlewares.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_ffabu.py" />
+        <option value="$PROJECT_DIR$/somenew/items.py" />
+        <option value="$PROJECT_DIR$/somenew/utils/lianx.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu.py" />
+        <option value="$PROJECT_DIR$/../../../python/other/proxies_mogu.py" />
+        <option value="$USER_HOME$/Downloads/PythonHTTP调用示例/YDMHTTPDemo3.x.py" />
+        <option value="$PROJECT_DIR$/somenew/utils/YDMHTTPDemo3.x.py" />
+        <option value="$PROJECT_DIR$/somenew/utils/lianx3.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu1.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu2.py" />
+        <option value="$PROJECT_DIR$/somenew/utils/lianx2.py" />
+        <option value="$PROJECT_DIR$/somenew/spiders/tianjinribao.py" />
+        <option value="$PROJECT_DIR$/somenew/media_tianjin.py" />
+        <option value="$PROJECT_DIR$/somenew/settings.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="555" />
+    <option name="y" value="50" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="media_tianjin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="media_tianjin" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../django" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\python\work\spider\work\media_shanxi\somenew\spiders" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\python\work\spider\work\media_tianjin\somenew\utils" />
+      <recent name="E:\python\work\spider\work\media_tianjin\somenew\spiders" />
+      <recent name="E:\python\work\spider\work\media_shanxi\somenew\spiders" />
+      <recent name="E:\python\work\spider\work\media_liaoning\somenew" />
+      <recent name="E:\python\work\spider\work\media_liaoning\somenew\spiders" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.media_tianjin">
+    <configuration name="YDMHTTPDemo3.x (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/somenew/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/somenew/utils/YDMHTTPDemo3.x.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lianx3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/somenew/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/somenew/utils/lianx3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="media_tianjin" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/somenew" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/somenew/media_tianjin.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="proxies_mogu" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../python/other" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../python/other/proxies_mogu.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="weixingongzhonghao_fabu1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/somenew/spiders" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="media_shangdong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.media_tianjin" />
+      <item itemvalue="Python.YDMHTTPDemo3.x (1)" />
+      <item itemvalue="Python.lianx3" />
+      <item itemvalue="Python.weixingongzhonghao_fabu1" />
+      <item itemvalue="Python.proxies_mogu" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.media_tianjin" />
+        <item itemvalue="Python.proxies_mogu" />
+        <item itemvalue="Python.weixingongzhonghao_fabu1" />
+        <item itemvalue="Python.lianx3" />
+        <item itemvalue="Python.YDMHTTPDemo3.x (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\xp-01\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efd8ed43-ad80-4e3a-b6ac-64ebe2a0c28a" name="Default Changelist" comment="" />
+      <created>1539743985005</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539743985005</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="3">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3326226" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.29609543" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.04446855" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49946696" visible="true" weight="0.07809111" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.09110629" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.15075922" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.5292842" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.42407808" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.329718" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="5" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17004265" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.29609543" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.14750542" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.10303687" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="5" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/main_shandong.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/spiders/yingkouxinwen.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/spiders/hebeixinwenwang.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/spiders/taiyuanxinwenwang.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/spiders/xinzhouwang.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/somenew/spiders/beifangwang.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/hebeixinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/shijiazhuangxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/qinhuangdaoxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/huanbohaixinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/huanjingjinwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/hengshuixinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/baodingzaixian.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/shanxinwanbao.py" />
+    <entry file="file://$PROJECT_DIR$/lianx.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/python.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/datongxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/huanghexinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/jinchengxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/jinzhongxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/xinzhouwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/yangquanxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/taiyuanxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/suozhouxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/shanxixinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/luliangxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/linfenxinwenwang.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/yunchengxinwen.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/wangyi2.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/wangyi1.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/wangyi3.py" />
+    <entry file="file://$PROJECT_DIR$/../news_spider/somenew_V0.4_10_3/somenew/main_news.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="834">
+          <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/changzhixinwenwang.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/HZ$D.141.4834/省市县.sql" />
+    <entry file="file://$PROJECT_DIR$/somenew/utils/citydata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/省市县.sql" />
+    <entry file="file://$PROJECT_DIR$/../../../../anacoda/Lib/site-packages/w3lib/html.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1816">
+          <caret line="148" column="49" lean-forward="true" selection-start-line="148" selection-start-column="49" selection-end-line="148" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/xinlangliaoning.py" />
+    <entry file="file://$USER_HOME$/Downloads/Python调用示例/Python调用示例/YDMPython3.x.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/utils/省市县.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/PythonHTTP调用示例/YDMHTTPDemo3.x.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/utils/YDMHTTPDemo3.x.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/utils/lianx3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="36" lean-forward="true" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/utils/lianx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu1.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_ffabu.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/weixingongzhonghao_fabu2.py" />
+    <entry file="file://$PROJECT_DIR$/somenew/utils/lianx2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="29" column="111" selection-start-line="29" selection-start-column="111" selection-end-line="29" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/beifangwang.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <folding>
+            <element signature="e#24#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/spiders/tianjinribao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="84" lean-forward="true" selection-start-line="20" selection-start-column="84" selection-end-line="20" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="34" column="52" lean-forward="true" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/middlewares.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="139" column="34" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../python/other/proxies_mogu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/items.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/somenew/media_tianjin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

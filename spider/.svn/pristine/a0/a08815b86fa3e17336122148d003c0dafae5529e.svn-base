@@ -1,0 +1,117 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from somenew.items import SomenewItem
+
+import hashlib
+import datetime
+import re
+class DzwwwSpider(scrapy.Spider):
+    name = 'dzwww'
+    allowed_domains = ['dzwww.com']
+    start_urls = ['http://dzwww.com/']
+
+    def parse(self, response):
+        print(response.url)
+        a = '//h2/a/@href'
+        b = '//*[@id="layout30"]/div[3]/div[4]/ul/div/li/a/@href'
+        c = '//*[@id="layout30"]/div[3]/div[6]/ul/li/a/@href'
+        d = '//*[@id="layout16"]/div[1]/div[2]/ul/li/a/@href'
+        e = '//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[1]/li/*/@href|//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[1]/li[1]/b/a/@href'
+        f = '//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[2]/li/a/@href|//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[2]/li[1]/b/a/@href'
+        h= '//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[3]/li[1]/b/a/@href|//*[@id="layout30"]/div[3]/div[12]/div[2]/ul[3]/li/a/@href'
+        i = '//*[@id="layout7"]/div[1]/div/div/h3/a/@href|//*[@id="layout7"]/div[1]/div/ul/li/a/@href'
+        j= '//*[@id="layout9"]/div[1]/div/div/h3/a/@href|//*[@id="layout9"]/div/div/ul/li/a/@href'
+        k= '//*[@id="layout9"]/div[@class="side2"]/ul/li/a/@href'
+        o = '//*[@id="layout10"]/div[1]/div[1]/div[2]/div/ul/li/a/@href|//*[@id="layout10"]/div[1]/div[2]/div[2]/ul/li/a/@href'
+        p = '//*[@id="layout10"]/div[2]/div[2]/ul/li/a/@href'
+        q = '//*[@id="layout11"]/div[1]/div[1]/ul/div/li/a/@href|//*[@id="layout11"]/div[1]/div[1]/ul/li/a/@href'
+        r = '//*[@id="layout11"]/div[1]/div[2]/div[3]/ul/li/a/@href'
+        s = '//*[@id="layout11"]/div[2]/div[2]/ul/li/a/@href'
+        t= '//*[@id="layout12"]/div[1]/div[1]/ul/li/a/@href'
+        u = '//*[@id="layout12"]/div[1]/div[2]/ul/li/a/@href'
+        v = '//*[@id="layout12"]/div[2]/ul/li/a/@href'
+        w = '//*[@id="layout12"]/div[1]/div/div[2]/h3/a/@href|//*[@id="layout12"]/div[2]/div[2]/h3/a/@href'
+        x = '//*[@id="layout13"]/div[1]/div/div[2]/div/h3[1]/a/@href|//*[@id="layout13"]/div[2]/div[2]/a/@href'
+        y = '//*[@id="layout13"]/div[1]/div/div[2]/ul/li/a/@href|//*[@id="layout13"]/div[2]/ul[1]/li/a/@href'
+        z = '//*[@id="layout14"]/div[1]/div[1]/div[2]/div[1]/h3/a/@href|//*[@id="layout14"]/div[2]/div[2]/h3/a/@href'
+        l = '//*[@id="layout14"]/div[1]/div[1]/div[2]/ul/li/a/@href|//*[@id="layout14"]/div[2]/ul/li/a/@href'
+        m = '//*[@id="layout15"]/div[1]/div/div[2]/div/h3/a/@href|//*[@id="layout14"]/div[2]/div[2]/h3/a/@href'
+        n = '//*[@id="layout15"]/div[1]/div[1]/div[2]/ul/li/a/@href|//*[@id="layout15"]/div[2]/div[2]/ul/li/a/@href'
+        g = '//*[@id="layout16"]/div[1]/div/div[2]/div/h3/a/@href|//*[@id="layout16"]/div[1]/div[2]/div[2]/h3/a/@href'
+        last_one = '//*[@id="layout16"]/div[1]/div/div/div/ul/li/a/@href|//*[@id="layout16"]/div[1]/div[2]/ul/li/a/@href'
+
+        url_list = [a,b,c,d,e,f,h,i,j,k,o,p,q,r,s,t,u,v,w,x,y,z,l,m,n,g,last_one]
+        for url_node in url_list:
+            one_url = response.xpath(url_node).extract()
+            for url in one_url:
+                try:
+                    yield scrapy.Request(url,callback=self.get_detail)
+                except:
+                    pass
+
+        "新闻"
+        key = ['guojixinwen','guoneixinwen','shehuixinwen']
+        for key_url in key:
+            xinwen_url = 'http://www.dzwww.com/xinwen/'+key_url
+            yield scrapy.Request(xinwen_url, callback=self.xinwen_url,meta={'key_url':key_url})
+
+
+    def xinwen_url(self,response):
+        # 新闻详情页url获取
+        fisrt_url = response.xpath("//div/div/ul/li/p/a/@href").extract()
+        for url in fisrt_url:
+            url = 'http://www.dzwww.com/xinwen/{}/'.format(response.meta['key_url'])+url.split('./')[1]
+            print(url,'准备发送的url')
+            yield scrapy.Request(url, callback=self.get_detail)
+        key_url = ['_'+str(i) for i in range(1,20)]
+        for key in key_url:
+            a = response.meta['key_url']
+            url  = 'http://www.dzwww.com/xinwen/{}/default{}.htm'.format(a,key)
+            yield scrapy.Request(url, callback=self.get_detail_fanye,meta={'key_url':a})
+
+    def get_detail_fanye(self,response):
+        fisrt_url = response.xpath("//div/div/ul/li/p/a/@href").extract()
+        for url in fisrt_url:
+                url = 'http://www.dzwww.com/xinwen/{}/'.format(response.meta['key_url'])+url.split('./')[1]
+
+                yield scrapy.Request(url, callback=self.get_detail)
+    def get_detail(self,response):
+            print(response.url,'111111111111111111111111111111111111111111111111111111111111111111111')
+            item = SomenewItem()
+            item['title'] = response.xpath("//div[@class=\"layout\"]/h2/text()|//div[@class=\"layout\"]/h2/font/text()|//*[@id=\"wrapper\"]/h1/text()").extract_first()
+            print(item['title'],'title')
+            try:
+                item['time'] = response.xpath(
+                "//*[@id=\"infor\"]/div[1]/span[1]/text()|//*[@id=\"xl-headline\"]/div/div[1]/text()|/*[@id=\"xl-headline\"]/div/div[1]/text()").extract_first().split('\u3000')[0]
+            except:
+                item['time'] = None
+
+            item['url'] = response.url
+            item['content'] = response.xpath("//div[@class=\"TRS_Editor\"]/p/text()|//div[@class=\"news-con\"]/p/text()|//div[@class=\"TRS_Editor\"]/p/font/text()").extract()
+            item['content'] = ''.join(item["content"]).replace(u'\u3000', u' ').replace(u'\xa0', u' ').replace('\n','').replace('\u2002','').strip()
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '大众网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            try:
+                item['come_from'] =response.xpath('//*[@id="xl-headline"]/div/div[1]/text()').extract_first().split('\u3000')[1].split('来源: ')[1]
+            except:
+                pass
+            item['addr_province'] = '山东省'
+            # item['addr_city'] = None
+            yield item
+
+
+
+
+
+
+
+
+

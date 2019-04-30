@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+from somenew.items import SomenewItem
+import hashlib
+import datetime
+import time
+import json
+
+
+class YingkouxinwenSpider(scrapy.Spider):
+    name = 'yingkouxinwen'
+    allowed_domains = ['yingkounews']
+    start_urls = ['http://www.yingkounews.com/news/ykms/','http://www.yingkounews.com/news/ykxw/','http://www.yingkounews.com/news/xqnews/']
+    #
+
+    def parse(self, response):
+        res = response.xpath('//*[@id="ul"]/li/a/@href|//*[@id="ul"]/li/strong/a/@href').extract()
+        res1 = response.xpath('//table[@class="news_navbj"]/tr/td/a[position()>2]/@href').extract()
+        if len(res):
+            for url in res:
+                url = response.url+url.split('./')[1]
+                yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+            for url in range(1,10):
+                url = response.url + 'index_{}.html'.format(url)
+                yield scrapy.Request(url, callback=self.get_detail_url, dont_filter=True)
+        if res1:
+            for url in res1:
+                url = 'http://www.yingkounews.com/news/xqnews/'+url.split('./')[1]
+                yield scrapy.Request(url, callback=self.get_detail_url1, dont_filter=True)
+    def get_detail_url(self, response):
+        res = response.xpath('//*[@id="ul"]/li/a/@href|//*[@id="ul"]/li/strong/a/@href').extract()
+        for url in res:
+            url = response.url+url.split('./')[1]
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+    def get_detail_url1(self, response):
+        res = response.xpath('//*[@id="ul"]/li/a/@href|//*[@id="ul"]/li/strong/a/@href').extract()
+        for url in res:
+            url = response.url+url.split('./')[1]
+            yield scrapy.Request(url, callback=self.get_detail, dont_filter=True)
+
+    def get_detail(self, response):
+        item = SomenewItem()
+        # print(response.url,'我是响应的rul')
+        item['title'] = response.xpath('//tr/td/div/text()').extract_first()
+        item['time'] = response.xpath('//tr[@class="song_666"]/td[2]/text()').extract_first()
+        item['content'] = response.xpath('//*[@id="fontsize"]/div/p/text()').extract()
+        item['come_from'] = response.xpath('//tr[@class="song_666"]/td[1]/text()').extract_first()
+        if  item['title'] and item['content'] and item['time']:
+            item['title'] = item['title'].split('\n')[1]
+            item['come_from'] = item['come_from'].split('来源：')[1].split('\xa0')[0]
+            item['time']= item['time'].replace('年','/').replace('月','/').replace('日','')
+            item['content'] = ''.join(item['content']).replace(u'\u3000', u' ').replace(u'\xa0', u' ').replace('\n',
+                                                                                                               '').replace(
+                '\u2002', '').strip()
+            item['url'] = response.url
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '营口新闻网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['addr_city'] = '营口'
+            item['addr_province'] = '辽宁省'
+            yield item
+

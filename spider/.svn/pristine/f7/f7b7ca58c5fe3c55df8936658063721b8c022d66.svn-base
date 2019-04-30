@@ -1,0 +1,18 @@
+# coding=utf-8
+
+import time
+import os
+
+while True:
+    os.system("scrapy crawl sina")
+    print("13" * 100)
+	
+	os.system("scrapy crawl toutiao")
+	print("toutiao" * 100)
+    time.sleep(10)  # 休息 运行下一个爬虫
+
+    
+
+    # os.system("scrapy crawl zgjingji")
+    # print("20" * 100)
+    # time.sleep(10)  # 休息 运行下一个爬虫

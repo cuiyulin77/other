@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class ItcastSpider(scrapy.Spider):
+    name = 'itcast'
+    allowed_domains = ['itcast.cn']
+    start_urls = ['http://www.itcast.cn/channel/teacher.shtml']
+
+    def parse(self, response):
+        print(type(response))
+        #获取xpath中的数据，extract方法
+        # print(response.xpath("//div[@class='tea_con']/div//h3/text()").extract())
+        print("*"*100)
+        # print(response.xpath("//div[@class='tea_con']/div//h10/text()").extract_first())
+        t = response.xpath("//div[@class='tea_con']/div//h3")
+        for i in t:
+            print(i.xpath("./text()").extract_first())

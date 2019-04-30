@@ -1,0 +1,54 @@
+测试和运行环境下的差别:
+测试环境下:
+一.tie.py
+1.kw_list列表提前设定,测试只使用了‘北京’作为关键词，后期可以维护一个热点城市列表，或者一个数据库
+2.只提取第一页的文章
+3.
+二.middlewares.py
+1.没有代理,只是通过降低爬取速度进行缓慢爬取
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 获取情感分类有可能是假值
+五.settings.py
+1.DOWNLOADER_MIDDLEWARES 没有打开代理
+2.ROBOTSTXT_OBEY = False
+3.CONCURRENT_REQUESTS = 3 限制线程数，微信反爬太厉害，总是获取不到数据
+
+
+*****************************************************************************************************
+运行环境下:
+一.tie.py
+1.kw_list列表提前设定,从数据库提取
+2.
+3.
+4.
+二.middlewares.py
+1.使用代理,
+三.es_model.py
+1.es IP设定为指定
+四.pipelines.py
+1.mysql和es设定有可能不是local
+2.mysql密码注意
+3. 情感分类调用百度api
+
+
+
+========================================================================================================
+一.wx_spider V1.1版本更新：
+1.sogou.py ,添加查询条件is_del=0
+(1)select  title from company_popular_feelings where is_del=0
+(2) 添加item['media_type'] = '微信公众号'
+2.items.py
+添加media_type 字段
+3.pipelines.py
+(1)进行新闻分类
+(2)es中添加classify,media_type字段
+
+
+
+
+
+

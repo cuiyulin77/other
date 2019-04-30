@@ -1,0 +1,72 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import hashlib
+import datetime
+from somenew.items import SomenewItem
+
+class ZhonghuataishangwangSpider(scrapy.Spider):
+    name = 'zhonghuataishangwang'
+    allowed_domains = ['my0538.com']
+    start_urls = ['http://www.my0538.com/','http://www.my0538.com/news/#','http://www.my0538.com/sh/minshengtaian/minshengyaowen/','http://www.my0538.com/current%20politics/All%20over%20Shandong/','http://www.my0538.com/current%20politics/domestic/']
+    # start_urls = ['http://www.my0538.com/', 'http://www.my0538.com/news/#',
+
+
+    def parse(self, response):
+        url = ''
+        res = response.xpath('//h3/a/@href|//li[not(@class="topdaohang")]/strong/a/@href|//div/div/div/ul[not(@class="friends-link title3") and not(@class="tab-menu")]/li/a/@href').extract()
+        res1 = response.xpath('//div[@class="col_RR"]/ul/li/*/@href|//div[not(@class="headmenu cwline")]/ul/li/a/@href\
+        |//h2/strong/a/@href|//*[@id="indexSlideCont"]/div/a/@href|/html/body/div[8]/div[1]/div/div[2]/div/div/a/@href').extract()
+        print(len(res))
+        if len(response.url) == 22:
+            for url1 in res:
+                try:
+                    yield scrapy.Request(url1,callback=self.get_detail)
+                except:
+                    pass
+        if len(response.url) == 27:
+            for url2 in res1:
+                if 'special' not in url2 and url2 != '#':
+                    print(url,'我是新闻页面的url')
+                    yield scrapy.Request(url2, callback=self.get_detail)
+
+        if len(response.url)>30:
+            print(len(response.url),response.url)
+            for i in range(1,20):
+                if len(response.url) == 50:
+                    url = 'http://www.my0538.com/current%20politics/domestic/{}.shtml'.format(i)
+                elif len(response.url) == 54:
+                    url = 'http://www.my0538.com/sh/minshengtaian/minshengyaowen/{}.shtml'.format(i)
+                else:
+                    url = 'http://www.my0538.com/current%20politics/All%20over%20Shandong/{}'.format(i)
+                print(url)
+                yield scrapy.Request(url, callback=self.get_detail_url)
+    def get_detail_url(self,resposne):
+            res = resposne.xpath('/html/body/div[2]/section/section/section/ul/li/a/@href').extract()
+            for url in res:
+                print(url,'我是阿松的url')
+                if 'singlemessage'  not in url:
+                    yield scrapy.Request(url, callback=self.get_detail)
+    def get_detail(self,response):
+        item = SomenewItem()
+        print(response.url,'响应url')
+        item['content'] = response.xpath('/html/body/section[1]/section/article/div[1]/div[2]/p/text()|/html/body/section[1]/section/article/div[1]/div[2]/div[1]/p').extract()
+        item['title'] = response.xpath('/html/body/section[1]/section/article/div[1]/h1/text()').extract()
+        item['time'] = response.xpath('/html/body/section[1]/section/article/div[1]/div[1]/span[1]/text()').extract_first()
+        if  item['title'] and item['content'] and item['time']:
+            item['title'] = ''.join(item['title']).replace('\n','').replace('\t','').replace('\u3000','').replace('\r','')
+            item['content'] = ''.join(item['content']).replace('\u3000','').replace('\ufeff','').replace('\xa0','')
+            item['url'] = response.url
+            m = hashlib.md5()
+            m.update(str(item['url']).encode('utf8'))
+            item['article_id'] = m.hexdigest()
+            item['media'] = '中华泰山网'
+            item['create_time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            item['comm_num'] = "0"
+            item['fav_num'] = '0'
+            item['read_num'] = '0'
+            item['env_num'] = '0'
+            item['media_type'] = '网媒'
+            item['come_from'] = response.xpath('//div[1]/span[2]/a/text()').extract_first()
+            item['addr_province'] = '山东'
+            item['addr_city'] = '泰山'
+            yield item

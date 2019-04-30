@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class DzwwwSpider(scrapy.Spider):
+    name = 'dzwww'
+    allowed_domains = ['dzwww.com']
+    start_urls = ['http://dzwww.com/']
+
+    def parse(self, response):
+        pass

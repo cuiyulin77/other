@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class ZhejiangzaixianSpider(scrapy.Spider):
+    name = 'zhejiangzaixian'
+    allowed_domains = ['zjol.com.cn']
+    start_urls = [
+        # 'http://zj.qq.com/l/travel/qqy/list20120820113704.htm', 'http://zj.qq.com/l/travel/qgy/list20120820113424.htm', 'http://zj.qq.com/l/news/list20130328165910.htm', 'http://zj.qq.com/l/fashion/inhz/list20150428153509.htm', 'http://zj.qq.com/l/baby/qzzx/list20130313162320.htm', 'http://zj.qq.com/l/cul/ys/list20161123103140.htm', 'http://zj.qq.com/l/gov/list2015022815804.htm', 'http://zj.qq.com/l/finance/finance_zx/list2012092511301.htm', 'http://zj.qq.com/l/education/jyzx/list2013032810717.htm', 'http://zj.qq.com/l/health/jkzx/list20140926124402.htm', 'http://zj.qq.com/l/sports/newslist/list2016077183834.htm', 'http://zj.qq.com/l/sports/comment/list2016077181802.htm', 'http://zj.qq.com/l/education/zxx/list2016072591221.htm', 'http://zj.qq.com/l/sports/lottery/list2016077183641.htm', 'http://zj.qq.com/l/travel/zjy/list20120820113353.htm',
+                  'http://china.zjol.com.cn/gjxw/','http://china.zjol.com.cn/gat/','http://china.zjol.com.cn/gnxw/']
+
+    def parse(self, response):
+        page_list = response.xpath("//span[@class='fenye']/div/a[contains(text(),'下一页')]/@href").extract()
+        page_list.append(response.url)
+        for url in page_list:
+            url = response.urljoin(url)
+            yield scrapy.Request(url,callback=self.get_url)
+
+    def get_url(self,response):
+        url_list = response.xpath("//ul[@class='listUl']/li/a/@href").extract()
+        for url in url_list:
+            yield scrapy.Request(url,callback=self.get_content)
+
+    def get_content(self,response):
+        pass
+

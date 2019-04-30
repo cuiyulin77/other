@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+# =============================================================================
+# 新浪辽宁爬虫 首页:
+# =============================================================================
+
+class XinlangliaoningSpider(scrapy.Spider):
+    name = 'xinlangliaoning'
+    allowed_domains = ['jj']
+    start_urls = ['http://jj/']
+
+    def parse(self, response):
+        pass

@@ -1,0 +1,18 @@
+# coding=utf-8
+
+import time
+import os
+
+while True:
+    os.system("scrapy crawl datongxinwenwang")
+    os.system("scrapy crawl huanghexinwenwang")
+    os.system("scrapy crawl shanxixinwenwang")
+    os.system("scrapy crawl taiyuanxinwenwang")
+    os.system("scrapy crawl xinlangshanxi")
+    os.system("scrapy crawl yunchengxinwen")
+
+
+
+
+
+

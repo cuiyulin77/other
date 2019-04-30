@@ -1,0 +1,186 @@
+07/25/2018 02:04:43  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:04:43  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:04:43  uOverridden settings: {'NEWSPIDER_MODULE': 'somenew.spiders', 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'LOGSTATS_INTERVAL': 0, 'FEED_EXPORT_ENCODING': 'utf-8', 'BOT_NAME': 'somenew', 'CONCURRENT_REQUESTS': 32, 'SPIDER_MODULES': ['somenew.spiders']}
+07/25/2018 02:04:44  uEnabled extensions:
+['scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.memusage.MemoryUsage']
+07/25/2018 02:04:44  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'somenew.middlewares.RandomProxy',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:04:44  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:04:44  uEnabled item pipelines:
+['somenew.pipelines.DBPipeline']
+07/25/2018 02:04:44  uTelnet console listening on 127.0.0.1:6024
+07/25/2018 02:04:44  uSpider opened
+07/25/2018 02:07:09  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:07:09  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:07:09  uOverridden settings: {'CONCURRENT_REQUESTS': 32, 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'NEWSPIDER_MODULE': 'somenew.spiders', 'LOGSTATS_INTERVAL': 0, 'BOT_NAME': 'somenew', 'FEED_EXPORT_ENCODING': 'utf-8', 'SPIDER_MODULES': ['somenew.spiders']}
+07/25/2018 02:07:09  uEnabled extensions:
+['scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.memusage.MemoryUsage']
+07/25/2018 02:07:09  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:07:09  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:07:10  uEnabled item pipelines:
+['somenew.pipelines.DBPipeline']
+07/25/2018 02:07:10  uTelnet console listening on 127.0.0.1:6025
+07/25/2018 02:07:10  uSpider opened
+07/25/2018 02:07:10  uCrawled (200) <GET http://tech.sina.com.cn/csj/2018-07-25/doc-ihftenia0649388.shtml> (referer: None)
+07/25/2018 02:11:47  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:11:47  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:11:47  uOverridden settings: {'CONCURRENT_REQUESTS': 32, 'FEED_EXPORT_ENCODING': 'utf-8', 'NEWSPIDER_MODULE': 'somenew.spiders', 'SPIDER_MODULES': ['somenew.spiders'], 'LOGSTATS_INTERVAL': 0, 'BOT_NAME': 'somenew', 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter'}
+07/25/2018 02:11:47  uEnabled extensions:
+['scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+07/25/2018 02:11:47  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:11:47  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:11:48  uEnabled item pipelines:
+['somenew.pipelines.DBPipeline']
+07/25/2018 02:11:48  uTelnet console listening on 127.0.0.1:6026
+07/25/2018 02:11:48  uSpider opened
+07/25/2018 02:11:48  uCrawled (200) <GET http://tech.sina.com.cn/csj/2018-07-25/doc-ihftenia0649388.shtml> (referer: None)
+07/25/2018 02:18:58  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:18:58  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:18:58  uOverridden settings: {'LOGSTATS_INTERVAL': 0, 'BOT_NAME': 'somenew', 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'CONCURRENT_REQUESTS': 32, 'SPIDER_MODULES': ['somenew.spiders'], 'FEED_EXPORT_ENCODING': 'utf-8', 'NEWSPIDER_MODULE': 'somenew.spiders'}
+07/25/2018 02:18:58  uEnabled extensions:
+['scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.corestats.CoreStats']
+07/25/2018 02:18:58  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:18:58  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:18:58  uEnabled item pipelines:
+['somenew.pipelines.DBPipeline']
+07/25/2018 02:18:58  uTelnet console listening on 127.0.0.1:6027
+07/25/2018 02:18:58  uSpider opened
+07/25/2018 02:18:58  uCrawled (200) <GET http://tech.sina.com.cn/csj/2018-07-25/doc-ihftenia0649388.shtml> (referer: None)
+07/25/2018 02:30:48  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:30:48  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:30:48  uOverridden settings: {'BOT_NAME': 'somenew', 'CONCURRENT_REQUESTS': 32, 'SPIDER_MODULES': ['somenew.spiders'], 'LOGSTATS_INTERVAL': 0, 'FEED_EXPORT_ENCODING': 'utf-8', 'NEWSPIDER_MODULE': 'somenew.spiders', 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter'}
+07/25/2018 02:30:48  uEnabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage']
+07/25/2018 02:30:48  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:30:48  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:30:48  uEnabled item pipelines:
+['somenew.pipelines.DBPipeline']
+07/25/2018 02:30:48  uTelnet console listening on 127.0.0.1:6028
+07/25/2018 02:30:48  uSpider opened
+07/25/2018 02:30:49  uCrawled (200) <GET http://tech.sina.com.cn/csj/2018-07-25/doc-ihftenia0649388.shtml> (referer: None)
+07/25/2018 02:59:27  uScrapy 1.5.0 started (bot: somenew)
+07/25/2018 02:59:27  uVersions: lxml 4.2.1.0, libxml2 2.9.8, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.5.2 (default, Nov 17 2016, 17:05:23) - [GCC 5.4.0 20160609], pyOpenSSL 17.5.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.2.2, Platform Linux-4.4.0-31-generic-x86_64-with-Ubuntu-16.04-xenial
+07/25/2018 02:59:27  uOverridden settings: {'CONCURRENT_REQUESTS': 32, 'BOT_NAME': 'somenew', 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter', 'FEED_EXPORT_ENCODING': 'utf-8', 'SPIDER_MODULES': ['somenew.spiders'], 'LOGSTATS_INTERVAL': 0, 'NEWSPIDER_MODULE': 'somenew.spiders'}
+07/25/2018 02:59:27  uEnabled extensions:
+['scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+07/25/2018 02:59:27  uEnabled downloader middlewares:
+['somenew.middlewares.RandomUserAgent',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+07/25/2018 02:59:27  uEnabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+07/25/2018 02:59:27  uEnabled item pipelines:
+[]
+07/25/2018 02:59:27  uTelnet console listening on 127.0.0.1:6029
+07/25/2018 02:59:27  uSpider opened
+07/25/2018 02:59:28  uCrawled (200) <GET http://mil.news.sina.com.cn/jssd/2018-07-25/doc-ihftenia1455620.shtml> (referer: None)

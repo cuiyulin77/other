@@ -1,0 +1,101 @@
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+from somenew.items import SomenewItem
+import datetime
+import hashlib
+import re
+from elasticsearch import Elasticsearch
+import importlib
+import sys
+importlib.reload(sys)
+
+# 澎湃爬虫
+class PengpaiSpider(scrapy.Spider):
+    name = 'pengpai'
+    allowed_domains = ['thepaper.cn']
+    # 从es中获取一个星期之内的，环球网所有的url。生成start_urls列表
+    es = Elasticsearch(hosts=['192.168.3.15'])
+    # 查询结束时间
+    this_day = datetime.date.today()
+    tomorrow = this_day + datetime.timedelta(days=1)
+    end_day = str(tomorrow) + 'T00:00:00'
+    # 查询起始时间
+    start = this_day - datetime.timedelta(days=7)
+    start_day = str(start) + 'T00:00:00'
+
+    query_json = {
+        "bool": {"must": [
+            {"match": {
+                "media": "澎湃"
+            }}
+        ],
+            "filter": {"range": {
+                "publish_time": {
+                    "gte": start_day,
+                    "lt": end_day}
+            }
+            }
+        }
+    }
+
+    # 获取总数["hits"]["total"]
+    res = es.count(index="spider", doc_type='article', body={"query": query_json})
+    res2 = es.search(index="spider", doc_type='article', body={"query": query_json, "size": res['count']})
+    urls = []
+    for i in res2['hits']['hits']:
+        urls.append(i['_source']['url'])
+
+    start_urls = urls
+
+    def parse(self, response):
+        item = SomenewItem()
+        url = response.url
+        m = hashlib.md5()
+        url = str(url)
+        m.update(str(url).encode('utf8'))
+        article_id = str(m.hexdigest())
+        item['article_id'] = article_id
+        com_num = response.xpath("//h2[@id='comm_span']/span/text()").extract_first().replace("（", '').replace("）", '')
+        com_int = re.match("(.*)k$", com_num)
+        if com_int is not None:
+            item['comm_num'] = int(float(com_int.group(1)) * 1000)
+        else:
+            item['comm_num'] = com_num
+        fav_num = response.xpath("//a[@id='zan']/text()").extract_first().replace("（", '').replace("）", '').replace(
+            "\n", '').replace("\t", '')
+        fav_num_int = re.match("(.*)k$", fav_num)
+        if fav_num_int is not None:
+            item['fav_num'] = int(float(fav_num_int.group(1)) * 1000)
+        else:
+            item['fav_num'] = fav_num
+        item['read_num'] = '0'
+        item['env_num'] = '0'
+        item['hot_value'] = int(item['fav_num']) + int(item['comm_num'])
+        yield item
+
+    # def get_content(self,response):
+    #     item = SomenewItem()
+    #     url = response.url
+    #     m = hashlib.md5()
+    #     url = str(url)
+    #     m.update(str(url).encode('utf8'))
+    #     article_id = str(m.hexdigest())
+    #     item['article_id'] = article_id
+    #     com_num = response.xpath("//h2[@id='comm_span']/span/text()").extract_first().replace("（",'').replace("）",'')
+    #     com_int = re.match("(.*)k$",com_num)
+    #     if com_int is not None:
+    #         item['comm_num'] = int(float(com_int.group(1))*1000)
+    #     else:
+    #         item['comm_num'] = com_num
+    #     fav_num = response.xpath("//a[@id='zan']/text()").extract_first().replace("（",'').replace("）",'').replace("\n",'').replace("\t",'')
+    #     fav_num_int = re.match("(.*)k$",fav_num)
+    #     if fav_num_int is not None:
+    #         item['fav_num'] = int(float(fav_num_int.group(1))*1000)
+    #     else:
+    #         item['fav_num'] = fav_num
+    #     item['read_num'] = '0'
+    #     item['env_num'] = '0'
+    #     item['hot_value'] = int(item['fav_num'])+int(item['comm_num'])
+    #     yield item
+

@@ -1,0 +1,27 @@
+
+
+========================================================================================================
+一.sina_newV1.0版本更新：(应始终保持上传到svn的数据在服务器上可以直接使用)
+1.pipelines.py
+(1) 不再存入mysql
+(2) 进行新闻分类 es中存入media_type,classify
+(3)新闻分类之前先判断是否有title(微博没有title,容易报错)
+(4)存入es之前判断是否有title,user_name,user_id.如果有才存入,防止报错.捕获错误的时候,错误信息前添加识别信息,以便搞清楚是哪里的错误
+2.item.py
+(1) 添加media_type,user_name,user_id字段
+3.spiders爬虫文件
+(1) sina.py 添加media_type字段，
+(2) 把今日头条,胶东在线,齐鲁晚报,放到此项目中，因为需要代理ip
+(3) 添加微博关键字搜索爬虫
+
+4.settings.py 不再生成log,随着时间的推移,log太大
+
+5.main文件
+添加main_wb_search.py,单独于main_sina.py.
+
+另外注意166.26 服务器上运行的代码,要取消RandomProxy 的注释,使用代理ip
+
+
+
+
+
